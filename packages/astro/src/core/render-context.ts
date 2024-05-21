@@ -4,12 +4,13 @@ import type {
 	AstroGlobalPartial,
 	ComponentInstance,
 	MiddlewareHandler,
+	MiddlewareNext,
 	RewritePayload,
 	RouteData,
 	SSRResult,
 } from '../@types/astro.js';
 import type { ActionAPIContext } from '../actions/runtime/store.js';
-import { createGetActionResult, hasActionsInternal } from '../actions/utils.js';
+import { createGetActionResult } from '../actions/utils.js';
 import {
 	computeCurrentLocale,
 	computePreferredLocale,
@@ -294,10 +295,6 @@ export class RenderContext {
 			},
 		} satisfies AstroGlobal['response'];
 
-		const actionResult = hasActionsInternal(this.locals)
-			? this.locals._actionsInternal?.actionResult
-			: undefined;
-
 		// Create the result object that will be passed into the renderPage function.
 		// This object starts here as an empty shell (not yet the result) but then
 		// calling the render() function will populate the object with scripts, styles, etc.
@@ -317,10 +314,8 @@ export class RenderContext {
 			renderers,
 			resolve,
 			response,
-			request: this.request,
 			scripts,
 			styles,
-			actionResult,
 			_metadata: {
 				hasHydrationScript: false,
 				rendererSpecificHydrationScripts: new Set(),

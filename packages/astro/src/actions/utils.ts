@@ -2,7 +2,7 @@ import type { APIContext } from '../@types/astro.js';
 import { AstroError } from '../core/errors/errors.js';
 import type { Locals } from './runtime/middleware.js';
 
-export function hasActionsInternal(locals: APIContext['locals']): locals is Locals {
+function hasActionsInternal(locals: APIContext['locals']): locals is Locals {
 	return '_actionsInternal' in locals;
 }
 
