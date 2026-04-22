@@ -1,0 +1,34 @@
+---
+title: "App"
+description: "App explains the responsibility boundary around `core/app`."
+order: 390
+---
+
+# App
+
+App explains the responsibility boundary around `core/app`.
+## What This Area Covers
+App explains the `core/app` behavior that readers can rely on before they inspect supporting files.
+## What It Actually Does
+The available source comments do not describe this behavior directly, so this page stays conservative and points readers to the related source files below.
+
+## Behavior Notes
+- Recognizes package markers such as `level`, `mode`.
+- Normalizes inputs to values such as `level` -> `info`, `mode` -> `production`.
+## How To Use This Page
+- Start with the responsibility this area owns.
+- Use the related setup, configuration, guide, or API pages when you need commands, options, or import paths.
+- Treat the files below as verification points for maintainers, not as the primary reader experience.
+## Typical Path
+1. Start with the App page to understand what this area is for.
+2. Review the setup, configuration, or guide page when the behavior depends on runtime context.
+3. Use API reference only when you need exact commands, imports, or options.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/src/core/app/createOutgoingHttpHeaders.ts` - CreateOutgoingHttpHeaders page-level UI. This is where users usually encounter the capability in the product.
+- `packages/astro/src/core/app/common.ts` - Common page-level UI. This is where users usually encounter the capability in the product.
+- `packages/astro/src/core/app/index.ts` - Index page-level UI. This is where users usually encounter the capability in the product.
+- `packages/astro/src/core/app/node.ts` - Node page-level UI. This is where users usually encounter the capability in the product.
+- `packages/astro/src/core/app/pipeline.ts` - Pipeline page-level UI. This is where users usually encounter the capability in the product.
+- `packages/astro/src/core/app/types.ts` - Types page-level UI. This is where users usually encounter the capability in the product.

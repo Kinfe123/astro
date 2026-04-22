@@ -1,0 +1,62 @@
+---
+title: "Environment Variables"
+description: "Environment variables provide runtime secrets, URLs, provider settings, and deployment values."
+order: 90
+---
+
+# Environment Variables
+
+Environment variables provide runtime secrets, URLs, provider settings, and deployment values.
+## What This Is
+Environment variable documentation explains which runtime values the project expects, where those values are read, what each variable controls, and what developers should verify before running previews, workers, or production deployments.
+## When To Use This
+- Use this when environment variables changes how Astro runs, connects, or behaves.
+- Use it to decide which values are required, optional, or only needed for a specific workflow.
+- Verify configuration changes with the smallest command or integration path that exercises them.
+## Core Concepts
+- environment variables
+- runtime secrets
+- configuration files
+- deployment values
+## Typical Workflow
+1. Start from example environment files when they exist.
+2. Cross-check each variable against the source file that reads it.
+3. Separate required runtime values from optional provider, preview, or deployment values.
+## What This Controls
+Configuration is useful only when readers can connect each value to behavior. Start by deciding whether the value affects credentials, persistence, routing, framework integration, output, or developer convenience.
+## Environment Variables
+- `NODE_ENV`
+- `ASTRO_TIMER_PATH`
+- `GITPOD_REPO_ROOT`
+- `npm_config_user_agent`
+- `PACKAGE_VERSION`
+## Configuration Files
+- `examples/basics/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/blog/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-alpine/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-lit/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-multiple/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-preact/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-react/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-solid/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-svelte/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-svelte/svelte.config.js` (framework) - SvelteKit application configuration.
+## Practical Details
+- Config: Config explains what this area is responsible for, how readers use it, and where to continue for setup or reference details. Core concepts: AstroConfigType, Config, Core, createNodeLogger, createSettings, resolveConfig, resolveConfigPath, resolveFlags.
+- Server: Server explains what this area is responsible for, how readers use it, and where to continue for setup or reference details. Core concepts: createAstro, createComponent, escapeHTML, HTMLBytes, HTMLString, isHTMLBytes, isHTMLString, renderEndpoint.
+- CLI Usage workflow: Run the command from the repository root or through the package script that owns it.
+- CLI Usage workflow: Use `--help` or the documented flags to understand optional behavior.
+- CLI Usage workflow: Verify the command's visible output or side effects before relying on it in automation.
+## How To Verify Changes
+- Identify whether the option affects security, runtime mounting, data access, or presentation.
+- Prefer examples that use the same names and defaults found in the project.
+- Call out adapter-specific behavior instead of implying every setting applies to every framework.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/src/runtime/server/astro-island.ts` - Repository file related to this page.
+- `packages/astro/src/cli/docs/open.ts` - Repository file related to this page.
+- `packages/astro/src/cli/info/index.ts` - Repository file related to this page.
+- `packages/astro/src/content/vite-plugin-content-virtual-mod.ts` - Repository file related to this page.
+- `packages/astro/src/core/config/timer.ts` - Repository file related to this page.
+- `packages/astro/src/core/constants.ts` - Repository file related to this page.

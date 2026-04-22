@@ -1,0 +1,31 @@
+---
+title: "Endpoint"
+description: "Endpoint explains the responsibility boundary around `assets/endpoint`."
+order: 250
+---
+
+# Endpoint
+
+Endpoint explains the responsibility boundary around `assets/endpoint`.
+## What This Area Covers
+Endpoint explains the `assets/endpoint` behavior that readers can rely on before they inspect supporting files.
+## What It Actually Does
+The available source comments do not describe this behavior directly, so this page stays conservative and points readers to the related source files below.
+
+## Behavior Notes
+- Recognizes package markers such as `astro/assets/endpoint/node`, `Cache-Control`, `Could not process image request: ${err}`, `pattern`.
+- Normalizes inputs to values such as `astro/assets/endpoint/node` -> `astro/assets/endpoint/generic`, `Cache-Control` -> `public, max-age=31536000`, `Could not process image request: ${err}` -> `Internal Server Error`, `pattern` -> `/_image`.
+## How To Use This Page
+- Start with the responsibility this area owns.
+- Use the related setup, configuration, guide, or API pages when you need commands, options, or import paths.
+- Treat the files below as verification points for maintainers, not as the primary reader experience.
+## Typical Path
+1. Start with the Endpoint page to understand what this area is for.
+2. Review the setup, configuration, or guide page when the behavior depends on runtime context.
+3. Use API reference only when you need exact commands, imports, or options.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/src/assets/endpoint/config.ts` - Runtime configuration file that controls how the product is mounted, secured, or connected to auth.
+- `packages/astro/src/assets/endpoint/generic.ts` - Repository file related to this page.
+- `packages/astro/src/assets/endpoint/node.ts` - Repository file related to this page.

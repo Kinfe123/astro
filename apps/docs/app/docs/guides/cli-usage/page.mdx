@@ -1,0 +1,68 @@
+---
+title: "CLI Usage"
+description: "CLI usage explains the commands and flags developers use to initialize, run, and debug the product."
+order: 110
+---
+
+# CLI Usage
+
+CLI usage explains the commands and flags developers use to initialize, run, and debug the product.
+## What This Is
+CLI usage explains the command-line mental model: which commands exist, when to use each command, which flags affect runtime behavior, and how the CLI discovers project configuration.
+## When To Use This
+- Use this when you want to complete the cli usage workflow from start to finish.
+- Use it as a task path first, then open reference pages only when you need exact flags or imports.
+- Follow the verification step before increasing scale or automating the workflow.
+## Core Concepts
+- commands
+- flags
+- config discovery
+- local development
+- standalone server
+## Typical Workflow
+1. Install or run the CLI from the host project root.
+2. Choose the command that matches the task, such as starting the studio or initializing config.
+3. Pass flags for port, host, config path, watch mode, or other runtime behavior when defaults do not match the app.
+## Before You Start
+- Install dependencies with `pnpm install`.
+- Confirm the main workflow with `pnpm dev`.
+- Review required configuration before running commands that create or mutate data.
+## Run The Workflow
+1. Install or run the CLI from the host project root.
+2. Choose the command that matches the task, such as starting the studio or initializing config.
+3. Pass flags for port, host, config path, watch mode, or other runtime behavior when defaults do not match the app.
+## Useful Commands
+- `dev` runs `turbo run dev --concurrency=40 --parallel --filter=astro --filter=create-astro --filter="@astrojs/*" --filter="@benchmark/*"` and starts the local development workflow.
+- `build` runs `turbo run build --filter=astro --filter=create-astro --filter="@astrojs/*" --filter="@benchmark/*"` and creates the production build or compiled package artifacts.
+- `test` runs `turbo run test --concurrency=1 --filter=astro --filter=create-astro --filter="@astrojs/*"` and runs verification for expected behavior.
+- `release` runs `pnpm run build && changeset publish` and prepares or publishes package releases.
+- `build:ci` runs `turbo run build:ci --filter=astro --filter=create-astro --filter="@astrojs/*" --filter="@benchmark/*"` and creates the production build or compiled package artifacts.
+- `build:examples` runs `turbo run build --filter="@example/*"` and creates the production build or compiled package artifacts.
+## Useful Options
+- `--help`: (-h)', 'See all available flags.']
+- `--host`: &lt;custom-address&gt;', `Expose on a network IP address at &lt;custom-address&gt;`]
+- `--open`
+- `--port`
+- `--yes`
+- `--base`: &lt;pathname&gt;', 'Specify your project base.']
+- `--root`: &lt;path&gt;', 'Specify your project root folder.']
+- `--site`: &lt;url&gt;', 'Specify your project site.']
+- `--config`: &lt;path&gt;', 'Specify your config file.']
+- `--global`
+- `--json`
+- `--openExternal`
+## Practical Details
+- CLI Usage: CLI usage explains the command-line mental model: which commands exist, when to use each command, which flags affect runtime behavior, and how the CLI discovers project configuration. Core concepts: commands, flags, config discovery, local development, standalone server.
+- Services: Services explains what this area is responsible for, how readers use it, and where to continue for setup or reference details. Core concepts: Assets, baseService, BaseServiceTransform, ExternalImageService, ImageService, isLocalService, LocalImageService, LocalImageTransform.
+- CLI Usage workflow: Choose the command that matches the task, such as starting the studio or initializing config.
+- CLI Usage workflow: Install or run the CLI from the host project root.
+- CLI Usage workflow: Pass flags for port, host, config path, watch mode, or other runtime behavior when defaults do not match the app.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/src/cli/add/babel.ts` - Repository file related to this page.
+- `packages/astro/src/cli/add/imports.ts` - Repository file related to this page.
+- `packages/astro/src/cli/add/index.ts` - Repository file related to this page.
+- `packages/astro/src/cli/add/wrapper.ts` - Repository file related to this page.
+- `packages/astro/src/cli/check/index.ts` - Repository file related to this page.
+- `packages/astro/src/cli/db/index.ts` - Repository file related to this page.

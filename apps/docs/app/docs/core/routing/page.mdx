@@ -1,0 +1,34 @@
+---
+title: "Routing"
+description: "Routing explains the responsibility boundary around `core/routing`."
+order: 530
+---
+
+# Routing
+
+Routing explains the responsibility boundary around `core/routing`.
+## What This Area Covers
+Routing explains the `core/routing` behavior that readers can rely on before they inspect supporting files.
+## What It Actually Does
+The available source comments do not describe this behavior directly, so this page stays conservative and points readers to the related source files below.
+
+## Behavior Notes
+- Recognizes package markers such as `page`, `type`, `route`, `content`.
+- Normalizes inputs to values such as `page` -> `endpoint`, `type` -> `page`, `route` -> `/404`, `content` -> `${lastPart.content}${item.routeSuffix}`.
+## How To Use This Page
+- Start with the responsibility this area owns.
+- Use the related setup, configuration, guide, or API pages when you need commands, options, or import paths.
+- Treat the files below as verification points for maintainers, not as the primary reader experience.
+## Typical Path
+1. Start with the Routing page to understand what this area is for.
+2. Review the setup, configuration, or guide page when the behavior depends on runtime context.
+3. Use API reference only when you need exact commands, imports, or options.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/src/core/routing/manifest/create.ts` - Repository file related to this page.
+- `packages/astro/src/core/routing/manifest/generator.ts` - Repository file related to this page.
+- `packages/astro/src/core/routing/manifest/serialization.ts` - Repository file related to this page.
+- `packages/astro/src/core/routing/match.ts` - Repository file related to this page.
+- `packages/astro/src/core/routing/astro-designed-error-pages.ts` - Repository file related to this page.
+- `packages/astro/src/core/routing/index.ts` - Repository file related to this page.

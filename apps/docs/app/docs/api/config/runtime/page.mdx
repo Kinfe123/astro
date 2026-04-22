@@ -1,0 +1,58 @@
+---
+title: "Runtime Config"
+description: "Runtime config defines the options developers pass when wiring the package into an application."
+order: 170
+---
+
+# Runtime Config
+
+Runtime config defines the options developers pass when wiring the package into an application.
+## What This Is
+This API reference page explains the configuration shape developers pass into the package, which options are part of the public contract, and which feature pages depend on those settings.
+## When To Use This
+- Use this when you need the developer-facing contract behind runtime config.
+- Start with the purpose and example shape before copying exported names.
+- Follow related feature or configuration pages when the API depends on runtime behavior.
+## Core Concepts
+- configuration type
+- runtime options
+- validation
+- public contract
+## Typical Workflow
+1. Locate the configuration object in the host application.
+2. Set only the options needed for the selected runtime and feature set.
+3. Use related feature docs to understand behavior controlled by each option.
+## Configuration Entry Points
+- `astro/config` - Configuration contract or helper export.
+- `astro/config.d.ts` - Configuration contract or helper export.
+- `astro/config.mjs` - Configuration contract or helper export.
+## Configuration Contract
+| Contract | Use it for |
+| --- | --- |
+| `AstroConfigType` | Configuration contract used when mounting or customizing Astro. |
+| `astroContentListenPlugin` | Public contract name used by the package configuration surface. |
+| `createNodeLogger` | Public contract name used by the package configuration surface. |
+| `createSettings` | Configuration contract used when mounting or customizing Astro. |
+| `defineConfig` | Helper for declaring Astro configuration with a stable shape. |
+| `getViteConfig` | Helper for locating or loading configuration at runtime. |
+| `injectImageEndpoint` | Public contract name used by the package configuration surface. |
+| `loadTSConfig` | Helper for locating or loading configuration at runtime. |
+| `mergeConfig` | Configuration contract used when mounting or customizing Astro. |
+| `passthroughImageService` | Public contract name used by the package configuration surface. |
+| `resolveConfig` | Configuration contract used when mounting or customizing Astro. |
+| `resolveConfigPath` | Configuration contract used when mounting or customizing Astro. |
+| `resolveFlags` | Public contract name used by the package configuration surface. |
+| `resolveRoot` | Public contract name used by the package configuration surface. |
+## How To Use This Contract
+- Start with the exported configuration helper or type rather than copying internal schema files.
+- Keep runtime options tied to the feature, adapter, or deployment behavior they control.
+- Treat example configs as usage examples; the primary source export is the contract.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/config.mjs` - Runtime configuration file that controls how the product is mounted, secured, or connected to auth.
+- `packages/astro/src/assets/endpoint/config.ts` - Runtime configuration file that controls how the product is mounted, secured, or connected to auth.
+- `packages/astro/src/config/index.ts` - Repository file related to this page.
+- `packages/astro/src/config/vite-plugin-content-listen.ts` - Repository file related to this page.
+- `packages/astro/src/core/config/config.ts` - Runtime configuration file that controls how the product is mounted, secured, or connected to auth.
+- `packages/astro/src/core/config/index.ts` - Repository file related to this page.

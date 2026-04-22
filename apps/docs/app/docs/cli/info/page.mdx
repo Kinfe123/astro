@@ -1,0 +1,29 @@
+---
+title: "Info"
+description: "Info explains the responsibility boundary around `cli/info`."
+order: 320
+---
+
+# Info
+
+Info explains the responsibility boundary around `cli/info`.
+## What This Area Covers
+Info explains the `cli/info` behavior that readers can rely on before they inspect supporting files.
+## What It Actually Does
+The available source comments do not describe this behavior directly, so this page stays conservative and points readers to the related source files below.
+
+## Behavior Notes
+- Recognizes package markers such as `type`, `message`, `encoding`, `darwin`, `win32`, `linux`.
+- Normalizes inputs to values such as `type` -> `confirm`, `message` -> `Copy to clipboard?`, `encoding` -> `utf8`, `darwin` -> `macOS`, `win32` -> `Windows`, `linux` -> `Linux`.
+## How To Use This Page
+- Start with the responsibility this area owns.
+- Use the related setup, configuration, guide, or API pages when you need commands, options, or import paths.
+- Treat the files below as verification points for maintainers, not as the primary reader experience.
+## Typical Path
+1. Start with the Info page to understand what this area is for.
+2. Review the setup, configuration, or guide page when the behavior depends on runtime context.
+3. Use API reference only when you need exact commands, imports, or options.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/src/cli/info/index.ts` - Repository file related to this page.

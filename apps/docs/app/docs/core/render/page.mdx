@@ -1,0 +1,30 @@
+---
+title: "Render"
+description: "Render explains the responsibility boundary around `core/render`."
+order: 520
+---
+
+# Render
+
+Render explains the responsibility boundary around `core/render`.
+## What This Area Covers
+Render explains the `core/render` behavior that readers can rely on before they inspect supporting files.
+## What It Actually Does
+- `validatePrerenderEndpointCollision(route: RouteData, mod: ComponentInstance, params: Params)` - If we have an endpoint at `src/pages/api/[slug].ts` that's prerendered, and the `slug` is `undefined`, throw an error as we can't generate the `/api` file and `/api` directory at the same time. Using something like `[slug].json.ts` instead will work.
+## How To Use This Page
+- Start with the responsibility this area owns.
+- Use the related setup, configuration, guide, or API pages when you need commands, options, or import paths.
+- Treat the files below as verification points for maintainers, not as the primary reader experience.
+## Typical Path
+1. Start with the Render page to understand what this area is for.
+2. Review the setup, configuration, or guide page when the behavior depends on runtime context.
+3. Use API reference only when you need exact commands, imports, or options.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/src/core/render/params-and-props.ts` - Repository file related to this page.
+- `packages/astro/src/core/render/paginate.ts` - Repository file related to this page.
+- `packages/astro/src/core/render/renderer.ts` - Repository file related to this page.
+- `packages/astro/src/core/render/ssr-element.ts` - Repository file related to this page.
+- `packages/astro/src/core/render/index.ts` - Repository file related to this page.
+- `packages/astro/src/core/render/result.ts` - Repository file related to this page.

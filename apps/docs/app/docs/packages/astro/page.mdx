@@ -1,0 +1,46 @@
+---
+title: "Astro"
+description: "Astro explains the responsibility boundary around `packages/astro`."
+order: 550
+---
+
+# Astro
+
+Astro explains the responsibility boundary around `packages/astro`.
+## What This Area Covers
+Astro explains the `packages/astro` behavior that readers can rely on before they inspect supporting files.
+## What It Actually Does
+- `main()` - `astro *`
+
+## Behavior Notes
+- Recognizes package markers such as `VERCEL`, `entrypoint`.
+- Normalizes inputs to values such as `VERCEL` -> `https://vercel.com/docs/runtimes#official-runtimes/node-js/node-js-version`, `entrypoint` -> `astro/assets/services/sharp`, `entrypoint` -> `astro/assets/services/squoosh`, `entrypoint` -> `astro/assets/services/noop`.
+## How To Use This Page
+- Start with the responsibility this area owns.
+- Use the related setup, configuration, guide, or API pages when you need commands, options, or import paths.
+- Treat the files below as verification points for maintainers, not as the primary reader experience.
+## Typical Path
+1. Start with the Astro page to understand what this area is for.
+2. Review the setup, configuration, or guide page when the behavior depends on runtime context.
+3. Use API reference only when you need exact commands, imports, or options.
+## From The README
+The README already describes this area in project language. Use these excerpts as the reader-facing baseline before adding more examples.
+
+### Directory
+- `astro` - [](packages/astro/CHANGELOG.md)
+- `create astro` - [](packages/create astro/CHANGELOG.md)
+- `@astrojs/react` - [](packages/integrations/react/CHANGELOG.md)
+- `@astrojs/preact` - [](packages/integrations/preact/CHANGELOG.md)
+- `@astrojs/solid js` - [](packages/integrations/solid/CHANGELOG.md)
+- `@astrojs/svelte` - [](packages/integrations/svelte/CHANGELOG.md)
+- 4 more settings are described in the README.
+
+### Install
+The recommended way to install the latest version of Astro is by running the command below:
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/astro.js` - Repository file related to this page.
+- `packages/astro/components/index.ts` - Index reusable UI component. It renders a visible part of the workflow or a focused interaction.
+- `packages/astro/config.mjs` - Runtime configuration file that controls how the product is mounted, secured, or connected to auth.
+- `packages/astro/content-module.template.mjs` - Repository file related to this page.
