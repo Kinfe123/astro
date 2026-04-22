@@ -1,0 +1,37 @@
+---
+title: "Logger"
+description: "Logger explains the responsibility boundary around `core/logger`."
+order: 470
+---
+
+# Logger
+
+Logger explains the responsibility boundary around `core/logger`.
+## What This Area Covers
+Logger explains the `core/logger` behavior that readers can rely on before they inspect supporting files.
+## What It Actually Does
+- `log(opts: LogOptions, level: LoggerLevel, label: string | null, message: string, newLine = true)` - Defined logger labels. Add more as needed, but keep them high-level & reusable, rather than specific to a single command, function, use, etc. The label will be shown in the log message to the user, so it should be relevant. / export type LoggerLabel = | 'add' | 'build' | 'check' | 'config' | 'content' | 'deprecated' | 'markdown' | 'router' | 'types' | 'vite' | 'watch' | 'middleware' | 'preferences' | 'redirects' | 'toolbar' | 'assets' // SKIP_FORMAT: A special label that tells the logger not to apply any formatting. // Useful for messages that are already formatted, like the server start message. | 'SKIP_FORMAT'; export interface LogOptions { dest: LogWritable<LogMessage>; level: LoggerLevel; } // Hey, locales are pretty complicated! Be careful modifying this logic... // If we throw at the top-level, international users can't use Astro. // // Using `[]` sets the default locale properly from the system! // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#parameters // // Here be the dragons we've slain: // https://github.com/withastro/astro/issues/2625 // https://github.com/withastro/astro/issues/3309 export const dateTimeFormat = new Intl.DateTimeFormat([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, }); export interface LogMessage { label: string | null; level: LoggerLevel; message: string; newLine: boolean; } export const levels: Record<LoggerLevel, number> = { debug: 20, info: 30, warn: 40, error: 50, silent: 90, }; Full logging API
+- `info(opts: LogOptions, label: string | null, message: string, newLine = true)` - Emit a user-facing message. Useful for UI and other console messages.
+- `warn(opts: LogOptions, label: string | null, message: string, newLine = true)` - Emit a warning message. Useful for high-priority messages that aren't necessarily errors.
+- `error(opts: LogOptions, label: string | null, message: string, newLine = true)` - Emit a error message, Useful when Astro can't recover from some error.
+- `getEventPrefix({ level, label }: LogMessage)` - Get the prefix for a log message. This includes the timestamp, log level, and label all properly formatted with colors. This is shared across different loggers, so it's defined here.
+- `debug(type: string, ...messages: Array<any>)` - Emit a message only shown in debug mode. Astro (along with many of its dependencies) uses the `debug` package for debug logging. You can enable these logs with the `DEBUG=astro:*` environment variable. More info https://github.com/debug-js/debug#environment-variables
+
+## Behavior Notes
+- Recognizes package markers such as `${Math.round(timeDiff)}ms`, `hour`, `minute`, `second`.
+- Normalizes inputs to values such as `${Math.round(timeDiff)}ms` -> `${(timeDiff / 1000).toFixed(1)}s`, `hour` -> `2-digit`, `minute` -> `2-digit`, `second` -> `2-digit`.
+## How To Use This Page
+- Start with the responsibility this area owns.
+- Use the related setup, configuration, guide, or API pages when you need commands, options, or import paths.
+- Treat the files below as verification points for maintainers, not as the primary reader experience.
+## Typical Path
+1. Start with the Logger page to understand what this area is for.
+2. Review the setup, configuration, or guide page when the behavior depends on runtime context.
+3. Use API reference only when you need exact commands, imports, or options.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/src/core/logger/console.ts` - Repository file related to this page.
+- `packages/astro/src/core/logger/core.ts` - Repository file related to this page.
+- `packages/astro/src/core/logger/node.ts` - Repository file related to this page.
+- `packages/astro/src/core/logger/vite.ts` - Repository file related to this page.

@@ -1,0 +1,37 @@
+---
+title: "Errors"
+description: "Errors explains the responsibility boundary around `core/errors`."
+order: 450
+---
+
+# Errors
+
+Errors explains the responsibility boundary around `core/errors`.
+## What This Area Covers
+Errors explains the `core/errors` behavior that readers can rely on before they inspect supporting files.
+## What It Actually Does
+- `collectErrorMetadata(e: any, rootFolder?: URL | undefined): ErrorWithMetadata` - Takes any error-like object and returns a standardized Error + metadata object. Useful for consistent reporting regardless of where the error surfaced from.
+- `getKebabErrorName(errorName: string): string` - The docs has kebab-case urls for errors, so we need to convert the error name Parameters: errorName.
+- `renderErrorMarkdown(markdown: string, target: 'html' | 'cli')` - Render a subset of Markdown to HTML or a CLI output
+- `getViteErrorPayload(err: ErrorWithMetadata): Promise<AstroErrorPayload>` - Generate a payload for Vite's error overlay
+
+## Behavior Notes
+- Recognizes package markers such as `type`, `title`.
+- Normalizes inputs to values such as `type` -> `error`, `title` -> `Unknown compiler error.`.
+## How To Use This Page
+- Start with the responsibility this area owns.
+- Use the related setup, configuration, guide, or API pages when you need commands, options, or import paths.
+- Treat the files below as verification points for maintainers, not as the primary reader experience.
+## Typical Path
+1. Start with the Errors page to understand what this area is for.
+2. Review the setup, configuration, or guide page when the behavior depends on runtime context.
+3. Use API reference only when you need exact commands, imports, or options.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/src/core/errors/dev/vite.ts` - Repository file related to this page.
+- `packages/astro/src/core/errors/userError.ts` - Repository file related to this page.
+- `packages/astro/src/core/errors/dev/index.ts` - Repository file related to this page.
+- `packages/astro/src/core/errors/dev/utils.ts` - Repository file related to this page.
+- `packages/astro/src/core/errors/errors-data.ts` - Repository file related to this page.
+- `packages/astro/src/core/errors/errors.ts` - Repository file related to this page.

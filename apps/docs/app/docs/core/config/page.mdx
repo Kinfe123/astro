@@ -1,0 +1,37 @@
+---
+title: "Config"
+description: "Config explains the responsibility boundary around `core/config`."
+order: 420
+---
+
+# Config
+
+Config explains the responsibility boundary around `core/config`.
+## What This Area Covers
+Config explains the `core/config` behavior that readers can rely on before they inspect supporting files.
+## What It Actually Does
+- `validateConfig(userConfig: any, root: string, cmd: string): Promise<AstroConfig>` - Turn raw config values into normalized values
+- `resolveConfigPath(options: ResolveConfigPathOptions): Promise<string | undefined>` - Resolve the file URL of the user's `astro.config.js|cjs|mjs|ts` file
+- `splitInlineConfig(inlineConfig: AstroInlineConfig)` - `AstroInlineConfig` is a union of `AstroUserConfig` and `AstroInlineOnlyConfig`. This functions splits it up.
+- `resolveConfig(inlineConfig: AstroInlineConfig, command: string, fsMod = fs): Promise<ResolveConfigResult>` - Resolves the Astro config with a given inline config. Parameters: inlineConfig An inline config that takes highest priority when merging and resolving the final config.; command The running command that uses this config. Usually 'dev' or 'build'..
+
+## Behavior Notes
+- Recognizes package markers such as `srcDir`, `publicDir`, `outDir`, `cacheDir`, `trailingSlash`, `format`, `client`, `server`, `assets`, `serverEntry`, `inlineStylesheets`, `message`.
+- Normalizes inputs to values such as `srcDir` -> `./src`, `publicDir` -> `./public`, `outDir` -> `./dist`, `cacheDir` -> `./node_modules/.astro`, `trailingSlash` -> `ignore`, `format` -> `directory`, `client` -> `./dist/client/`, `server` -> `./dist/server/`, and more.
+## How To Use This Page
+- Start with the responsibility this area owns.
+- Use the related setup, configuration, guide, or API pages when you need commands, options, or import paths.
+- Treat the files below as verification points for maintainers, not as the primary reader experience.
+## Typical Path
+1. Start with the Config page to understand what this area is for.
+2. Review the setup, configuration, or guide page when the behavior depends on runtime context.
+3. Use API reference only when you need exact commands, imports, or options.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/src/core/config/settings.ts` - Repository file related to this page.
+- `packages/astro/src/core/config/config.ts` - Runtime configuration file that controls how the product is mounted, secured, or connected to auth.
+- `packages/astro/src/core/config/index.ts` - Repository file related to this page.
+- `packages/astro/src/core/config/logging.ts` - Repository file related to this page.
+- `packages/astro/src/core/config/merge.ts` - Repository file related to this page.
+- `packages/astro/src/core/config/schema.ts` - Repository file related to this page.

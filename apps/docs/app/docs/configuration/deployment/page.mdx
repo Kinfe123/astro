@@ -1,0 +1,59 @@
+---
+title: "Deployment"
+description: "Deployment documentation explains how the product runs in previews, staging, and production."
+order: 80
+---
+
+# Deployment
+
+Deployment documentation explains how the product runs in previews, staging, and production.
+## What This Is
+Deployment documentation explains how the project is expected to run outside local development, which platform files are authoritative, and what needs to be verified for preview, staging, and production environments.
+## When To Use This
+- Use this when deployment changes how Astro runs, connects, or behaves.
+- Use it to decide which values are required, optional, or only needed for a specific workflow.
+- Verify configuration changes with the smallest command or integration path that exercises them.
+## Core Concepts
+- deployment
+- containers
+- platform config
+- preview environment
+- production
+## Typical Workflow
+1. Locate Docker, Railway, Vercel, Wrangler, or platform-specific configuration.
+2. Connect deployment files to required environment variables and runtime commands.
+3. Document verification steps for preview and production environments.
+## What This Controls
+Configuration is useful only when readers can connect each value to behavior. Start by deciding whether the value affects credentials, persistence, routing, framework integration, output, or developer convenience.
+## Environment Variables
+No environment variables are directly tied to this configuration page yet.
+## Configuration Files
+- `.devcontainer/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/basics/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/blog/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/framework-alpine/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/framework-lit/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/framework-multiple/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/framework-preact/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/framework-react/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/framework-solid/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/framework-svelte/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+## Practical Details
+- Deployment workflow: Connect deployment files to required environment variables and runtime commands.
+- Deployment workflow: Document verification steps for preview and production environments.
+- Deployment workflow: Locate Docker, Railway, Vercel, Wrangler, or platform-specific configuration.
+- Deployment: Deployment documentation explains how the project is expected to run outside local development, which platform files are authoritative, and what needs to be verified for preview, staging, and production environments. Core concepts: deployment, containers, platform config, preview environment, production.
+- deployment configuration is defined in `.devcontainer/Dockerfile`. Container or Docker Compose setup.
+## How To Verify Changes
+- Identify whether the option affects security, runtime mounting, data access, or presentation.
+- Prefer examples that use the same names and defaults found in the project.
+- Call out adapter-specific behavior instead of implying every setting applies to every framework.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `examples/basics/.codesandbox/Dockerfile` - Deployment configuration that explains how the product runs outside local development.
+- `examples/blog/.codesandbox/Dockerfile` - Deployment configuration that explains how the product runs outside local development.
+- `examples/framework-alpine/.codesandbox/Dockerfile` - Deployment configuration that explains how the product runs outside local development.
+- `examples/framework-lit/.codesandbox/Dockerfile` - Deployment configuration that explains how the product runs outside local development.
+- `examples/framework-multiple/.codesandbox/Dockerfile` - Deployment configuration that explains how the product runs outside local development.
+- `examples/framework-preact/.codesandbox/Dockerfile` - Deployment configuration that explains how the product runs outside local development.

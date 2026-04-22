@@ -1,0 +1,47 @@
+---
+title: "Installation"
+description: "Install and configure Astro."
+order: 20
+---
+
+# Installation
+
+This page explains how to get Astro into a runnable state. It separates the setup model from command lists so readers understand what each step is preparing.
+## Setup Model
+Installation has three jobs: install the package dependencies, provide the runtime configuration the project expects, and verify the command that exercises the main workflow. If any of those steps are skipped, the application may install correctly but still fail when it tries to load database, adapter, environment-backed, or service-backed behavior.
+## What Gets Configured
+- Dependencies provide the framework, CLI, adapters, and runtime libraries used by the project.
+- Environment variables provide secrets, URLs, database connections, provider tokens, and deployment-specific behavior.
+- Scripts provide repeatable entrypoints for local development, production builds, tests, and release tasks.
+## Successful Setup Looks Like
+- Dependencies install with the package manager already used by the project.
+- Required environment variables are present before runtime commands are executed.
+- The primary command starts, builds, or verifies the project without needing undocumented manual steps.
+## Install Dependencies
+Run `pnpm install` from the project root.
+## Configure Environment Variables
+Copy `env.example` into `.env` and fill in the required values before running the project.
+- `ASTRO_TIMER_PATH`
+- `GITPOD_REPO_ROOT`
+- `NODE_ENV`
+- `npm_config_user_agent`
+- `PACKAGE_VERSION`
+## Verify the Build or Runtime Command
+The most relevant command detected right now is `pnpm dev`.
+## Framework and Adapter Coverage
+- Astro
+- Gin
+- SvelteKit
+## Configuration Files
+- `examples/basics/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/blog/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-alpine/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-lit/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-multiple/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-preact/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-react/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-solid/astro.config.mjs` (framework) - Astro application configuration.
+## Useful Commands
+- `build` runs `turbo run build --filter=astro --filter=create-astro --filter="@astrojs/*" --filter="@benchmark/*"` and creates the production build or compiled package artifacts.
+- `dev` runs `turbo run dev --concurrency=40 --parallel --filter=astro --filter=create-astro --filter="@astrojs/*" --filter="@benchmark/*"` and starts the local development workflow.
+- `test` runs `turbo run test --concurrency=1 --filter=astro --filter=create-astro --filter="@astrojs/*"` and runs verification for expected behavior.

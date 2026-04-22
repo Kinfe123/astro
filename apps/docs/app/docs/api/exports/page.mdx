@@ -1,0 +1,37 @@
+---
+title: "Public Exports"
+description: "Use this reference to choose the correct public import path for the workflow you are building."
+order: 150
+---
+
+# Public Exports
+
+Use this reference to choose the correct public import path for the workflow you are building.
+## What To Import
+Use this page when you already know you need to integrate Astro from `astro`, but you need to choose the right entrypoint. Start with the main package for shared helpers, use framework subpaths when mounting the product in an app, and use config subpaths when you are typing or loading runtime configuration.
+## Common Imports
+```ts
+import { astroConfigBuildPlugin, createImage } from "astro";
+```
+## Choose an Import Path
+| Import path | When to use it | Common imports |
+| --- | --- | --- |
+| `astro` | Use this for top-level helpers, shared types, and runtime utilities from Astro. | `astroConfigBuildPlugin`, `astroContentAssetPropagationPlugin`, `astroContentVirtualModPlugin`, `createImage`, `defineCollection` |
+| `astro/app` | Use this when you need the focused subpath rather than the main package entrypoint. | Use the path as the stable entrypoint. |
+| `astro/app/node` | Use this when you need the focused subpath rather than the main package entrypoint. | Use the path as the stable entrypoint. |
+| `astro/assets` | Use this when you need the focused subpath rather than the main package entrypoint. | `astroConfigBuildPlugin`, `astroContentAssetPropagationPlugin`, `createImage`, `GET`, `injectImageEndpoint` |
+| `astro/assets/endpoint/*` | Use this when you need the focused subpath rather than the main package entrypoint. | Use the path as the stable entrypoint. |
+| `astro/assets/services/noop` | Use this when you need the focused subpath rather than the main package entrypoint. | `noopService` |
+| `astro/assets/services/sharp` | Use this when you need the focused subpath rather than the main package entrypoint. | `SharpImageServiceConfig`, `sharpService` |
+| `astro/assets/services/squoosh` | Use this when you need the focused subpath rather than the main package entrypoint. | `service` |
+## How To Decide
+- Choose the main package entrypoint for shared helpers, product-level types, and top-level setup utilities.
+- Choose a framework entrypoint when the import is used inside that framework's route, handler, plugin, or server integration.
+- Choose a configuration entrypoint when the code is reading, validating, or typing the product configuration.
+- If two paths look similar, prefer the narrowest path that matches the file you are editing.
+## Practical Details
+- CLI Usage: CLI usage explains the command-line mental model: which commands exist, when to use each command, which flags affect runtime behavior, and how the CLI discovers project configuration. Core concepts: commands, flags, config discovery, local development, standalone server.
+- Services: Services explains what this area is responsible for, how readers use it, and where to continue for setup or reference details. Core concepts: Assets, baseService, BaseServiceTransform, ExternalImageService, ImageService, isLocalService, LocalImageService, LocalImageTransform.
+- CLI Usage workflow: Choose the command that matches the task, such as starting the studio or initializing config.
+- CLI Usage workflow: Install or run the CLI from the host project root.
+- CLI Usage workflow: Pass flags for port, host, config path, watch mode, or other runtime behavior when defaults do not match the app.

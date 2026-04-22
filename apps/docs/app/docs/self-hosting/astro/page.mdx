@@ -1,0 +1,68 @@
+---
+title: "Astro Setup"
+description: "Astro setup shows how to mount the product inside a Astro host application."
+order: 60
+---
+
+# Astro Setup
+
+Astro setup shows how to mount the product inside a Astro host application.
+## What This Is
+This setup page explains how to run the product inside a Astro application. It covers the runtime dependency, the framework route or server hook, and the configuration the host app must provide.
+
+The recommended way to install the latest version of Astro is by running the command below:
+## When To Use This
+- Use this when you want to run Astro inside your own application or infrastructure.
+- Use it to separate what the host app owns from what the package provides.
+- Review environment and deployment settings before exposing the runtime in production.
+## Core Concepts
+- Astro
+- self-hosting
+- runtime dependency
+- route mount
+- host app config
+## Typical Workflow
+1. Install the package where the production server can import it.
+2. Create the Astro route, handler, or server integration.
+3. Verify the product can read the same runtime, database, and access configuration as the host app.
+## Runtime Shape
+This page focuses on the Astro runtime path provided by adapters, examples, or package exports.
+Use `astro/astro` when wiring this runtime from the package export.
+## Integration Story
+For Astro, the important idea is that the host application owns runtime state, database access, routing, and deployment. Astro provides the handler or adapter that plugs into that host application. This page makes that boundary clear so developers know what the package supplies and what their app must still configure.
+## Setup Checklist
+1. Install dependencies with `pnpm install`.
+2. Configure required environment variables before starting the runtime.
+3. Run `pnpm dev` or the framework-specific command from the host app.
+4. Verify the mounted route, API handler, or container can reach the same runtime and database configuration as the host app.
+## Practical Details
+- CLI Usage: CLI usage explains the command-line mental model: which commands exist, when to use each command, which flags affect runtime behavior, and how the CLI discovers project configuration. Core concepts: commands, flags, config discovery, local development, standalone server.
+- Services: Services explains what this area is responsible for, how readers use it, and where to continue for setup or reference details. Core concepts: Assets, baseService, BaseServiceTransform, ExternalImageService, ImageService, isLocalService, LocalImageService, LocalImageTransform.
+- CLI Usage workflow: Choose the command that matches the task, such as starting the studio or initializing config.
+- CLI Usage workflow: Install or run the CLI from the host project root.
+- CLI Usage workflow: Pass flags for port, host, config path, watch mode, or other runtime behavior when defaults do not match the app.
+## From The README
+The README already describes this area in project language. Use these excerpts as the reader-facing baseline before adding more examples.
+
+### Install
+The recommended way to install the latest version of Astro is by running the command below:
+
+### Support
+Having trouble?  Get help in the official Astro Discord.
+## Configuration Files
+- `examples/basics/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/blog/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-alpine/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-lit/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-multiple/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-preact/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-react/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-solid/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-svelte/astro.config.mjs` (framework) - Astro application configuration.
+- `examples/framework-vue/astro.config.mjs` (framework) - Astro application configuration.
+## Environment Variables
+- `ASTRO_TIMER_PATH`
+- `GITPOD_REPO_ROOT`
+- `NODE_ENV`
+- `npm_config_user_agent`
+- `PACKAGE_VERSION`

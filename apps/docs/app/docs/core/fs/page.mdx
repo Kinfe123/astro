@@ -1,0 +1,25 @@
+---
+title: "Fs"
+description: "Fs explains the responsibility boundary around `core/fs`."
+order: 460
+---
+
+# Fs
+
+Fs explains the responsibility boundary around `core/fs`.
+## What This Area Covers
+Fs explains the `core/fs` behavior that readers can rely on before they inspect supporting files.
+## What It Actually Does
+- `removeDir(_dir: URL): void` - An fs utility, similar to `rimraf` or `rm -rf`
+## How To Use This Page
+- Start with the responsibility this area owns.
+- Use the related setup, configuration, guide, or API pages when you need commands, options, or import paths.
+- Treat the files below as verification points for maintainers, not as the primary reader experience.
+## Typical Path
+1. Start with the Fs page to understand what this area is for.
+2. Review the setup, configuration, or guide page when the behavior depends on runtime context.
+3. Use API reference only when you need exact commands, imports, or options.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/src/core/fs/index.ts` - Repository file related to this page.

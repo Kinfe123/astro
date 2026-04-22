@@ -1,0 +1,60 @@
+---
+title: "CLI Usage"
+description: "The repository exposes a command-line entrypoint and runtime flags."
+order: 160
+---
+
+# CLI Usage
+
+The repository exposes a command-line entrypoint and runtime flags.
+## Command Purpose
+The CLI entrypoint is a developer workflow. This page explains what command-line options exist, what configuration they depend on, and how to verify the command did what the repository says it does.
+## How to Run It
+Run `pnpm dev` from the project root after dependencies and required environment values are ready.
+Install dependencies first with `pnpm install`.
+## What the Command Depends On
+The command reads environment-backed configuration. Set these values before using large runs or automation.
+- `GITPOD_REPO_ROOT`
+- `PACKAGE_VERSION`
+- `npm_config_user_agent`
+- 2 more environment variables appear elsewhere in the project; document them on the page for the workflow that uses them.
+## Flags and Options
+Use flags to override defaults for a specific run. Prefer the default script first, then add flags when you need a different scale, concurrency level, target, or debug mode.
+- `--help`: (-h)', 'See all available flags.']
+- `--openExternal`
+- `--base`: &lt;pathname&gt;', 'Specify your project base.']
+- `--global`
+- `--host`: &lt;custom-address&gt;', `Expose on a network IP address at &lt;custom-address&gt;`]
+- `--json`
+- `--open`
+- `--port`
+- `--root`: &lt;path&gt;', 'Specify your project root folder.']
+- `--silent`
+- `--site`: &lt;url&gt;', 'Specify your project site.']
+- `--verbose`
+## Useful Commands
+- `dev` runs `turbo run dev --concurrency=40 --parallel --filter=astro --filter=create-astro --filter="@astrojs/*" --filter="@benchmark/*"` and starts the local development workflow.
+- `build` runs `turbo run build --filter=astro --filter=create-astro --filter="@astrojs/*" --filter="@benchmark/*"` and creates the production build or compiled package artifacts.
+- `test` runs `turbo run test --concurrency=1 --filter=astro --filter=create-astro --filter="@astrojs/*"` and runs verification for expected behavior.
+- `format` runs `pnpm run format:code && pnpm run format:imports` and checks or fixes code style before changes are shipped.
+- `format:ci` runs `pnpm run format:code:ci && pnpm run format:imports:ci` and checks or fixes code style before changes are shipped.
+- `format:imports` runs `biome check --apply .` and checks or fixes code style before changes are shipped.
+## Practical Details
+- CLI Usage: CLI usage explains the command-line mental model: which commands exist, when to use each command, which flags affect runtime behavior, and how the CLI discovers project configuration. Core concepts: commands, flags, config discovery, local development, standalone server.
+- Services: Services explains what this area is responsible for, how readers use it, and where to continue for setup or reference details. Core concepts: Assets, baseService, BaseServiceTransform, ExternalImageService, ImageService, isLocalService, LocalImageService, LocalImageTransform.
+- CLI Usage workflow: Choose the command that matches the task, such as starting the studio or initializing config.
+- CLI Usage workflow: Install or run the CLI from the host project root.
+- CLI Usage workflow: Pass flags for port, host, config path, watch mode, or other runtime behavior when defaults do not match the app.
+## Verification Checklist
+- Confirm required environment values are present before running the command.
+- Start with the smallest safe command or script before increasing scale.
+- Use `--help` when available to confirm the flags supported by the current version.
+- Check the command output or downstream service to confirm the expected side effect happened.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/src/cli/docs/open.ts` - Repository file related to this page.
+- `packages/astro/src/cli/add/index.ts` - Repository file related to this page.
+- `packages/astro/src/cli/dev/index.ts` - Repository file related to this page.
+- `packages/astro/src/cli/index.ts` - Repository file related to this page.
+- `packages/astro/src/cli/preferences/index.ts` - Repository file related to this page.

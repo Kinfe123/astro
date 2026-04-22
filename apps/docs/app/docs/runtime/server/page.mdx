@@ -1,0 +1,35 @@
+---
+title: "Server"
+description: "Server explains the responsibility boundary around `runtime/server`."
+order: 580
+---
+
+# Server
+
+Server explains the responsibility boundary around `runtime/server`.
+## What This Area Covers
+Server explains the `runtime/server` behavior that readers can rely on before they inspect supporting files.
+## What It Actually Does
+- `createAstroGlobFn()` - Create the Astro.glob() runtime function.
+- `renderEndpoint(mod: EndpointHandler, context: APIContext, ssr: boolean, logger: Logger)` - Renders an endpoint request to completion, returning the body.
+
+## Behavior Notes
+- Recognizes package markers such as `generator`.
+- Normalizes inputs to values such as `generator` -> `Astro v${ASTRO_VERSION}`.
+## How To Use This Page
+- Start with the responsibility this area owns.
+- Use the related setup, configuration, guide, or API pages when you need commands, options, or import paths.
+- Treat the files below as verification points for maintainers, not as the primary reader experience.
+## Typical Path
+1. Start with the Server page to understand what this area is for.
+2. Review the setup, configuration, or guide page when the behavior depends on runtime context.
+3. Use API reference only when you need exact commands, imports, or options.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/src/runtime/server/astro-island.ts` - Repository file related to this page.
+- `packages/astro/src/runtime/server/endpoint.ts` - Repository file related to this page.
+- `packages/astro/src/runtime/server/escape.ts` - Repository file related to this page.
+- `packages/astro/src/runtime/server/render/any.ts` - Repository file related to this page.
+- `packages/astro/src/runtime/server/render/astro/factory.ts` - Repository file related to this page.
+- `packages/astro/src/runtime/server/astro-component.ts` - Repository file related to this page.

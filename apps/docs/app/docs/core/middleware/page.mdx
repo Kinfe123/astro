@@ -1,0 +1,37 @@
+---
+title: "Middleware"
+description: "Middleware explains the responsibility boundary around `core/middleware`."
+order: 480
+---
+
+# Middleware
+
+Middleware explains the responsibility boundary around `core/middleware`.
+## What This Area Covers
+Middleware explains the `core/middleware` behavior that readers can rely on before they inspect supporting files.
+## What It Actually Does
+- `createContext({ request, params = {}, userDefinedLocales = [], }: CreateContext): APIContext` - Payload for creating a context to be passed to Astro middleware / export type CreateContext = { The incoming request / request: Request; Optional parameters / params?: Params; A list of locales that are supported by the user / userDefinedLocales?: string[]; }; Creates a context to be passed to Astro middleware `onRequest` function.
+- `isLocalsSerializable(value: unknown): boolean` - Checks whether the passed `value` is serializable. A serializable value contains plain values. For example, `Proxy`, `Set`, `Map`, functions, etc. are not accepted because they can't be serialized.
+- `trySerializeLocals(value: unknown)` - It attempts to serialize `value` and return it as a string. ## Errors If the `value` is not serializable if the function will throw a runtime error. Something is **not serializable** when it contains properties/values like functions, `Map`, `Set`, `Date`, and other types that can't be made a string. Parameters: value.
+- `loadMiddleware(moduleLoader: ModuleLoader)` - It accepts a module loader and the astro settings, and it attempts to load the middlewares defined in the configuration. If not middlewares were not set, the function returns an empty array.
+- `sequence(...handlers: MiddlewareHandler[]): MiddlewareHandler` - It accepts one or more middleware handlers and makes sure that they are run in sequence.
+
+## Behavior Notes
+- Recognizes package markers such as `generator`, `type`, `preserveSignature`, `fileName`.
+- Normalizes inputs to values such as `generator` -> `Astro v${ASTRO_VERSION}`, `type` -> `chunk`, `preserveSignature` -> `strict`, `fileName` -> `middleware.mjs`.
+## How To Use This Page
+- Start with the responsibility this area owns.
+- Use the related setup, configuration, guide, or API pages when you need commands, options, or import paths.
+- Treat the files below as verification points for maintainers, not as the primary reader experience.
+## Typical Path
+1. Start with the Middleware page to understand what this area is for.
+2. Review the setup, configuration, or guide page when the behavior depends on runtime context.
+3. Use API reference only when you need exact commands, imports, or options.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/src/core/middleware/callMiddleware.ts` - Repository file related to this page.
+- `packages/astro/src/core/middleware/loadMiddleware.ts` - Repository file related to this page.
+- `packages/astro/src/core/middleware/sequence.ts` - Repository file related to this page.
+- `packages/astro/src/core/middleware/index.ts` - Repository file related to this page.
+- `packages/astro/src/core/middleware/vite-plugin.ts` - Repository file related to this page.

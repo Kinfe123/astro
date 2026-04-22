@@ -1,0 +1,34 @@
+---
+title: "Client"
+description: "Client explains the responsibility boundary around `runtime/client`."
+order: 560
+---
+
+# Client
+
+Client explains the responsibility boundary around `runtime/client`.
+## What This Area Covers
+Client explains the `runtime/client` behavior that readers can rely on before they inspect supporting files.
+## What It Actually Does
+The available source comments do not describe this behavior directly, so this page stays conservative and points readers to the related source files below.
+
+## Behavior Notes
+- Recognizes package markers such as `id`, `icon`, `cache`, `link`.
+- Normalizes inputs to values such as `id` -> `astro:home`, `icon` -> `astro:logo`, `cache` -> `no-cache`, `icon` -> `bug`, `link` -> `https://github.com/withastro/astro/issues/new/choose`, `icon` -> `lightbulb`, `link` -> `https://github.com/withastro/roadmap/discussions/new/choose`, `icon` -> `file-search`, and more.
+## How To Use This Page
+- Start with the responsibility this area owns.
+- Use the related setup, configuration, guide, or API pages when you need commands, options, or import paths.
+- Treat the files below as verification points for maintainers, not as the primary reader experience.
+## Typical Path
+1. Start with the Client page to understand what this area is for.
+2. Review the setup, configuration, or guide page when the behavior depends on runtime context.
+3. Use API reference only when you need exact commands, imports, or options.
+## Supporting Files
+Use these files when you need to verify examples or update the behavior behind this page.
+
+- `packages/astro/src/runtime/client/dev-toolbar/apps/audit/rules/a11y.ts` - Repository file related to this page.
+- `packages/astro/src/runtime/client/dev-toolbar/apps/audit/rules/index.ts` - Repository file related to this page.
+- `packages/astro/src/runtime/client/dev-toolbar/apps/audit/rules/perf.ts` - Repository file related to this page.
+- `packages/astro/src/runtime/client/dev-toolbar/apps/audit/index.ts` - Repository file related to this page.
+- `packages/astro/src/runtime/client/dev-toolbar/apps/audit/ui/audit-list-item.ts` - Repository file related to this page.
+- `packages/astro/src/runtime/client/dev-toolbar/apps/audit/ui/audit-list-window.ts` - Repository file related to this page.
