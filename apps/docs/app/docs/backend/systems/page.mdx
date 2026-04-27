@@ -1,0 +1,31 @@
+---
+title: "Core Backend Systems"
+description: "The backend page explains request handling, runtime configuration, data-facing services, and the server-side workflow behind the product."
+order: 270
+---
+
+# Core Backend Systems
+
+The backend page explains request handling, runtime configuration, data-facing services, and the server-side workflow behind the product.
+## Purpose and Scope
+This area owns request handling, runtime configuration, integrations, and data-facing behavior. It is where the product turns input into persistent state, external calls, or responses.
+## What Lives Here
+- `packages/astro/src/core/app/common.ts` - Common core runtime file. It usually coordinates the main execution path or shared system behavior.
+- `packages/astro/src/core/app/createOutgoingHttpHeaders.ts` - CreateOutgoingHttpHeaders core runtime file. It usually coordinates the main execution path or shared system behavior.
+- `packages/astro/src/core/app/index.ts` - Index core runtime file. It usually coordinates the main execution path or shared system behavior.
+- `packages/astro/src/core/app/node.ts` - Node core runtime file. It usually coordinates the main execution path or shared system behavior.
+- `packages/astro/src/core/app/pipeline.ts` - Pipeline core runtime file. It usually coordinates the main execution path or shared system behavior.
+- `packages/astro/src/core/app/types.ts` - Types core runtime file. It usually coordinates the main execution path or shared system behavior.
+- `packages/astro/src/core/base-pipeline.ts` - Base Pipeline core runtime file. It usually coordinates the main execution path or shared system behavior.
+- `packages/astro/src/core/client-directive/build.ts` - Build core runtime file. It usually coordinates the main execution path or shared system behavior.
+## Operational Shape
+- Route or API entrypoints are detected in 6 files.
+- `ASTRO_TIMER_PATH`
+- `GITPOD_REPO_ROOT`
+- `NODE_ENV`
+- `npm_config_user_agent`
+- `PACKAGE_VERSION`
+## Related Areas
+- [Build System and Package Structure](/docs/build/package-structure) - The build page explains how the repository is packaged, built, exported, and prepared for local development or distribution.
+- [CLI and Development Tools](/docs/cli/tooling) - The CLI page explains terminal-driven workflows, command entrypoints, development tooling, and the flags developers use while working locally.
+- [Frontend Application](/docs/frontend/application) - The frontend page explains the user-facing application, navigation shell, and interface workflows readers actually interact with.

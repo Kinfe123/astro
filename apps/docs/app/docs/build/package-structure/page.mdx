@@ -1,0 +1,33 @@
+---
+title: "Build System and Package Structure"
+description: "The build page explains how the repository is packaged, built, exported, and prepared for local development or distribution."
+order: 280
+---
+
+# Build System and Package Structure
+
+The build page explains how the repository is packaged, built, exported, and prepared for local development or distribution.
+## Purpose and Scope
+This area explains how the repository is built, packaged, and exposed to consumers. It covers scripts, config files, package entrypoints, and the delivery shape readers need before they publish or self-host the project.
+## What Lives Here
+- `package.json` - Package manifest that defines scripts, entrypoints, exports, and dependency boundaries.
+- `packages/astro/e2e/fixtures/astro-component/astro.config.mjs` - Build or framework configuration that shapes the generated app, package output, or developer workflow.
+- `packages/astro/e2e/fixtures/astro-envs/astro.config.mjs` - Build or framework configuration that shapes the generated app, package output, or developer workflow.
+- `packages/astro/e2e/fixtures/client-only/astro.config.mjs` - Build or framework configuration that shapes the generated app, package output, or developer workflow.
+- `packages/astro/e2e/fixtures/content-collections/astro.config.mjs` - Build or framework configuration that shapes the generated app, package output, or developer workflow.
+- `packages/astro/e2e/fixtures/custom-client-directives/astro.config.mjs` - Build or framework configuration that shapes the generated app, package output, or developer workflow.
+- `packages/astro/e2e/fixtures/dev-toolbar/astro.config.mjs` - Build or framework configuration that shapes the generated app, package output, or developer workflow.
+- `packages/astro/e2e/fixtures/error-cyclic/astro.config.mjs` - Build or framework configuration that shapes the generated app, package output, or developer workflow.
+## Build Inputs
+- `build` runs `turbo run build --filter=astro --filter=create-astro --filter="@astrojs/*" --filter="@benchmark/*"` and creates the production build or compiled package artifacts.
+- `dev` runs `turbo run dev --concurrency=40 --parallel --filter=astro --filter=create-astro --filter="@astrojs/*" --filter="@benchmark/*"` and starts the local development workflow.
+- `test` runs `turbo run test --concurrency=1 --filter=astro --filter=create-astro --filter="@astrojs/*"` and runs verification for expected behavior.
+- `version` runs `changeset version && node ./scripts/deps/update-example-versions.js && pnpm install --no-frozen-lockfile && pnpm run format` and supports the project workflow.
+- `build:ci` runs `turbo run build:ci --filter=astro --filter=create-astro --filter="@astrojs/*" --filter="@benchmark/*"` and creates the production build or compiled package artifacts.
+- `format` runs `pnpm run format:code && pnpm run format:imports` and checks or fixes code style before changes are shipped.
+- `format:ci` runs `pnpm run format:code:ci && pnpm run format:imports:ci` and checks or fixes code style before changes are shipped.
+- `format:code` runs `prettier -w "**/*" --ignore-unknown --cache` and checks or fixes code style before changes are shipped.
+## Related Areas
+- [Core Backend Systems](/docs/backend/systems) - The backend page explains request handling, runtime configuration, data-facing services, and the server-side workflow behind the product.
+- [CLI and Development Tools](/docs/cli/tooling) - The CLI page explains terminal-driven workflows, command entrypoints, development tooling, and the flags developers use while working locally.
+- [Frontend Application](/docs/frontend/application) - The frontend page explains the user-facing application, navigation shell, and interface workflows readers actually interact with.

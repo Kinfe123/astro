@@ -1,0 +1,36 @@
+---
+title: "Deployment"
+description: "Deployment documentation explains how the product runs in previews, staging, and production."
+order: 90
+---
+
+# Deployment
+
+Deployment documentation explains how the product runs in previews, staging, and production.
+## What This Controls
+Deployment documentation explains how the project is expected to run outside local development, which platform files are authoritative, and what needs to be verified for preview, staging, and production environments.
+## Key Ideas
+- deployment
+- containers
+- platform config
+- preview environment
+- production
+## How To Think About Settings
+Configuration is useful only when readers can connect each value to behavior. Start by deciding whether the value affects credentials, persistence, routing, framework integration, output, or developer convenience.
+## Environment Variables
+No environment variables are directly tied to this configuration page yet.
+## Configuration Files
+- `.devcontainer/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/basics/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/blog/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/framework-alpine/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/framework-lit/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/framework-multiple/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/framework-preact/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/framework-react/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/framework-solid/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+- `examples/framework-svelte/.codesandbox/Dockerfile` (deployment) - Container or Docker Compose setup.
+## How To Verify Changes
+- Identify whether the option affects security, runtime mounting, data access, or presentation.
+- Prefer examples that use the same names and defaults found in the project.
+- Call out adapter-specific behavior instead of implying every setting applies to every framework.

@@ -1,0 +1,46 @@
+---
+title: "CLI and Development Tools"
+description: "The CLI page explains terminal-driven workflows, command entrypoints, development tooling, and the flags developers use while working locally."
+order: 290
+---
+
+# CLI and Development Tools
+
+The CLI page explains terminal-driven workflows, command entrypoints, development tooling, and the flags developers use while working locally.
+## Purpose and Scope
+This area owns terminal-first workflows such as local development, setup helpers, watch mode, and project automation. It is where maintainers and contributors interact with the repo without opening the browser.
+## What Lives Here
+- `packages/astro/src/cli/add/babel.ts` - Repository file related to this page.
+- `packages/astro/src/cli/add/imports.ts` - Repository file related to this page.
+- `packages/astro/src/cli/add/index.ts` - Repository file related to this page.
+- `packages/astro/src/cli/add/wrapper.ts` - Repository file related to this page.
+- `packages/astro/src/cli/check/index.ts` - Repository file related to this page.
+- `packages/astro/src/cli/db/index.ts` - Repository file related to this page.
+- `packages/astro/src/cli/dev/index.ts` - Repository file related to this page.
+- `packages/astro/src/cli/docs/index.ts` - Repository file related to this page.
+## Useful Commands
+- `build` runs `turbo run build --filter=astro --filter=create-astro --filter="@astrojs/*" --filter="@benchmark/*"` and creates the production build or compiled package artifacts.
+- `dev` runs `turbo run dev --concurrency=40 --parallel --filter=astro --filter=create-astro --filter="@astrojs/*" --filter="@benchmark/*"` and starts the local development workflow.
+- `test` runs `turbo run test --concurrency=1 --filter=astro --filter=create-astro --filter="@astrojs/*"` and runs verification for expected behavior.
+- `lint` runs `eslint . --report-unused-disable-directives` and checks or fixes code style before changes are shipped.
+- `build:ci` runs `turbo run build:ci --filter=astro --filter=create-astro --filter="@astrojs/*" --filter="@benchmark/*"` and creates the production build or compiled package artifacts.
+- `format` runs `pnpm run format:code && pnpm run format:imports` and checks or fixes code style before changes are shipped.
+- `format:ci` runs `pnpm run format:code:ci && pnpm run format:imports:ci` and checks or fixes code style before changes are shipped.
+- `format:imports` runs `biome check --apply .` and checks or fixes code style before changes are shipped.
+## Useful Options
+- `--help`: (-h)', 'See all available flags.']
+- `--host`: &lt;custom-address&gt;', `Expose on a network IP address at &lt;custom-address&gt;`]
+- `--yes`
+- `--base`: &lt;pathname&gt;', 'Specify your project base.']
+- `--config`: &lt;path&gt;', 'Specify your config file.']
+- `--open`
+- `--openExternal`
+- `--port`
+- `--root`: &lt;path&gt;', 'Specify your project root folder.']
+- `--silent`
+- `--site`: &lt;url&gt;', 'Specify your project site.']
+- `--verbose`
+## Related Areas
+- [Core Backend Systems](/docs/backend/systems) - The backend page explains request handling, runtime configuration, data-facing services, and the server-side workflow behind the product.
+- [Build System and Package Structure](/docs/build/package-structure) - The build page explains how the repository is packaged, built, exported, and prepared for local development or distribution.
+- [Frontend Application](/docs/frontend/application) - The frontend page explains the user-facing application, navigation shell, and interface workflows readers actually interact with.
