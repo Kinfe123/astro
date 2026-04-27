@@ -1,0 +1,72 @@
+---
+title: "Astro"
+description: "Overview for Astro."
+order: 0
+---
+
+# Astro
+
+Astro is a modern site builder with web best practices, performance, and DX front-of-mind.
+## Product Story
+Astro is documented as a messaging product: how the bot connects to its platform, how people ask questions, how the project gathers context, and how a useful answer gets sent back. The docs should orient operators and contributors before they need to inspect source files.
+## Reader Paths
+- Start with the overview, quickstart, and installation pages to understand the product before moving into deeper setup details.
+- Use feature pages to understand product capabilities surfaced by the README, routes, UI, or domain files.
+- Use self-hosting pages when deciding how this project fits into a framework, server, or deployment environment.
+- Use configuration pages for runtime settings, environment files, deployment files, database files, or product config.
+- Use guides for task-oriented workflows such as CLI usage, local development, troubleshooting, or product-specific operations.
+- Use API reference pages after the mental model is clear and you need routes, commands, adapters, exports, or type contracts.
+## How These Docs Help
+Each page starts with the reader's goal, then moves into the workflow, configuration, and verification details needed to use or operate the project. File paths and exports are supporting context, not the main explanation.
+## Documentation Map
+- Get Started: [Astro](/docs) - Overview for Astro.
+- Get Started: [Quickstart](/docs/quickstart) - Run Astro for the first time.
+- Get Started: [Installation](/docs/installation) - Install and configure Astro.
+- Core Features: [Features](/docs/features) - Product capabilities and workflows readers can use or operate.
+- Core Features: [Developer Tools](/docs/features/developer-tools) - Developer tools help configure, inspect, and generate the pieces needed to run the product.
+- Core Features: [Documentation Lookup](/docs/features/documentation-lookup) - Documentation lookup finds relevant docs context before the project answers a user question.
+- Self-Hosting: [Self-Hosting](/docs/self-hosting) - Runtime and deployment setup for running the project in your own environment.
+- Self-Hosting: [Astro Setup](/docs/self-hosting/astro) - Astro setup shows how to mount the product inside an Astro host application.
+- Configuration: [Configuration](/docs/configuration) - Runtime values, environment variables, deployment settings, and framework configuration.
+- Configuration: [Deployment](/docs/configuration/deployment) - Deployment documentation explains how the product runs in previews, staging, and production.
+- Guides: [Guides](/docs/guides) - Task-oriented workflows that move readers from setup to a useful outcome.
+- Guides: [CLI Usage](/docs/guides/cli-usage) - CLI usage explains the commands and flags developers use to initialize, run, and debug the product.
+- API Reference: [API Reference](/docs/api) - Concrete developer-facing surfaces: commands, exports, adapters, routes, and type contracts.
+- API Reference: [CLI](/docs/api/cli) - Commands and flags for running repository workflows from the terminal.
+- API Reference: [Configuration API](/docs/api/config) - Configuration types, helpers, and contracts used by application developers.
+- API Reference: [CLI Usage](/docs/api/cli/usage) - The repository exposes a command-line entrypoint and runtime flags.
+- API Reference: [Runtime Config](/docs/api/config/runtime) - Runtime config defines the options developers pass when wiring the package into an application.
+- Architecture: [Architecture](/docs/architecture) - How major subsystems, runtime surfaces, and workflow boundaries fit together.
+- Assets: [Assets](/docs/assets) - Assets pages for understanding and using Astro.
+- Backend: [Backend](/docs/backend) - Server-side systems, request handling, runtime behavior, and data-facing workflows.
+- Build: [Build](/docs/build) - Build pipeline, package structure, scripts, and delivery surfaces for the repository.
+- Cli: [CLI](/docs/cli) - Developer tooling, commands, flags, and terminal-driven workflows.
+- Content: [Content](/docs/content) - Content pages for understanding and using Astro.
+- Frontend: [Frontend](/docs/frontend) - User-facing application structure, navigation, and interface behavior.
+- Architecture: [Architecture Overview](/docs/architecture/overview) - The architecture page explains the repository as a set of real subsystems so readers can orient themselves before diving into commands, exports, or implementation files.
+- Assets: [Endpoint](/docs/assets/endpoint) - Endpoint explains the `assets/endpoint` area and the workflow it supports.
+- Assets: [Services](/docs/assets/services) - Services explains the `assets/services` area and the workflow it supports.
+- Backend: [Core Backend Systems](/docs/backend/systems) - The backend page explains request handling, runtime configuration, data-facing services, and the server-side workflow behind the product.
+- Build: [Build System and Package Structure](/docs/build/package-structure) - The build page explains how the repository is packaged, built, exported, and prepared for local development or distribution.
+- Cli: [CLI and Development Tools](/docs/cli/tooling) - The CLI page explains terminal-driven workflows, command entrypoints, development tooling, and the flags developers use while working locally.
+- Content: [Runtime Assets](/docs/content/runtime-assets) - Runtime Assets explains the `content/runtime-assets` area and the workflow it supports.
+- Content: [Runtime](/docs/content/runtime) - Runtime explains the `content/runtime` area and the workflow it supports.
+- Frontend: [Frontend Application](/docs/frontend/application) - The frontend page explains the user-facing application, navigation shell, and interface workflows readers actually interact with.
+## At A Glance
+- Package name: `astro`
+- Runtime and adapter coverage: Astro, Gin, SvelteKit
+## Core Capabilities
+- Documentation Lookup: This workflow turns a user question into usable documentation context. It sends the question to the configured documentation source, parses the returned sections, keeps useful metadata such as titles and source links, and hands the best context to the response step. Key concepts: docs retrieval, query text, source links, code examples.
+- Developer Tools: This section explains the utilities that help developers inspect, configure, or generate parts of the product. These tools are not just UI screens; they are shortcuts for common setup, debugging, schema, email, or integration work. Key concepts: developer tools, generators, inspectors, visual editors.
+- Messaging Bot: This page explains the bot runtime from a user and operator point of view: how messages enter the app, which messages the bot responds to, what feedback it gives while working, and which credentials must be present before it can connect to the platform. Key concepts: bot runtime, message events, mentions, commands.
+- Event Tracking: This capability turns runtime activity into a timeline that administrators can inspect. It is especially useful for auth products because sign-ins, session creation, account updates, and organization events often need auditability and context. Key concepts: events, audit trail, activity feed, last seen.
+## Runtime and Adapter Coverage
+- Astro
+- Gin
+- SvelteKit
+## Common Commands
+- `build` runs `turbo run build --filter=astro --filter=create-astro --filter="@astrojs/*" --filter="@benchmark/*"` and creates the production build or compiled package artifacts.
+- `dev` runs `turbo run dev --concurrency=40 --parallel --filter=astro --filter=create-astro --filter="@astrojs/*" --filter="@benchmark/*"` and starts the local development workflow.
+- `test` runs `turbo run test --concurrency=1 --filter=astro --filter=create-astro --filter="@astrojs/*"` and runs verification for expected behavior.
+## Configuration You May Need
+No reader-facing environment contract was found in README or example environment files.

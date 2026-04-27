@@ -1,0 +1,54 @@
+---
+title: "Astro Setup"
+description: "Astro setup shows how to mount the product inside an Astro host application."
+order: 70
+---
+
+# Astro Setup
+
+Astro setup shows how to mount the product inside an Astro host application.
+## What You Are Wiring
+This setup page explains how to run the product inside an Astro application. It covers the runtime dependency, the framework route or server hook, and the configuration the host app must provide.
+
+The recommended way to install the latest version of Astro is by running the command below:
+## Key Ideas
+- Astro
+- self-hosting
+- runtime dependency
+- route mount
+- host app config
+## Runtime Shape
+This page focuses on the Astro runtime path provided by adapters, examples, or package exports.
+Use `astro/astro` when wiring this runtime from the package export.
+## Integration Story
+For Astro, the important idea is that the host application owns runtime state, database access, routing, and deployment. Astro provides the handler or adapter that plugs into that host application. This page makes that boundary clear so developers know what the package supplies and what their app must still configure.
+## Setup Checklist
+1. Install dependencies with `pnpm install`.
+2. Configure required environment variables before starting the runtime.
+3. Run `pnpm dev` or the framework-specific command from the host app.
+4. Verify the mounted route, API handler, or container can reach the same runtime and database configuration as the host app.
+## From The README
+The README already describes this area in project language. These excerpts are the reader-facing baseline before adding more examples.
+
+### Install
+The recommended way to install the latest version of Astro is by running the command below:
+
+### Support
+Having trouble?  Get help in the official Astro Discord.
+## Configuration Files
+- `packages/astro/e2e/fixtures/astro-component/astro.config.mjs` (framework) - Astro application configuration.
+- `packages/astro/e2e/fixtures/astro-envs/astro.config.mjs` (framework) - Astro application configuration.
+- `packages/astro/e2e/fixtures/client-only/astro.config.mjs` (framework) - Astro application configuration.
+- `packages/astro/e2e/fixtures/content-collections/astro.config.mjs` (framework) - Astro application configuration.
+- `packages/astro/e2e/fixtures/custom-client-directives/astro.config.mjs` (framework) - Astro application configuration.
+- `packages/astro/e2e/fixtures/dev-toolbar/astro.config.mjs` (framework) - Astro application configuration.
+- `packages/astro/e2e/fixtures/error-cyclic/astro.config.mjs` (framework) - Astro application configuration.
+- `packages/astro/e2e/fixtures/errors/astro.config.mjs` (framework) - Astro application configuration.
+- `packages/astro/e2e/fixtures/hydration-race/astro.config.mjs` (framework) - Astro application configuration.
+- `packages/astro/e2e/fixtures/i18n/astro.config.mjs` (framework) - Astro application configuration.
+## Environment Variables
+- `ASTRO_TIMER_PATH`
+- `GITPOD_REPO_ROOT`
+- `NODE_ENV`
+- `npm_config_user_agent`
+- `PACKAGE_VERSION`
