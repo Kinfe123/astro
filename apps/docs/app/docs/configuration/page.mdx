@@ -1,0 +1,55 @@
+---
+title: "Configuration"
+description: "Understand astro.config.mjs and the options that control how Astro builds and serves your site."
+order: 0
+---
+
+# Configuration
+
+Astro is configured through a single file at your project root: `astro.config.mjs`. You export a config object from it using `defineConfig`, which gives you editor autocompletion and type checking on every option.
+
+```js
+// astro.config.mjs
+import { defineConfig } from 'astro/config';
+
+export default defineConfig({
+  site: 'https://example.com',
+  base: '/my-site',
+});
+```
+
+`defineConfig` is a passthrough helper — it returns whatever you pass in, but TypeScript reads the signature to validate your options. You can also import `getViteConfig` from `astro/config` when you need to reuse Astro's Vite configuration outside of Astro's own build pipeline.
+
+## Locating the config file
+
+By default, Astro looks for `astro.config.mjs` (or `.cjs`, `.ts`, `.js`) in the project root. You can point at a different file with the `--config` CLI flag:
+
+```bash
+astro build --config astro.prod.config.mjs
+```
+
+## Common options
+
+`site` sets the full URL of your deployed site. Astro uses it to generate canonical URLs and sitemaps — set it before you build for production.
+
+`base` sets the path prefix for your site when it is deployed to a subdirectory (for example `/blog`). All internal links and asset paths are automatically prefixed.
+
+`output` controls the build target. The default is `'static'` for a fully pre-rendered site. Set it to `'server'` to enable server-side rendering with an adapter.
+
+`integrations` is an array where you wire in official and community packages such as `@astrojs/react` or `@astrojs/tailwind`. The `astro add` command populates this array for you automatically.
+
+## Image configuration
+
+Astro's built-in image optimization is configured under the `image` key. You choose an image service — Sharp, Squoosh, or a passthrough no-op — by importing the corresponding helper from `astro/config`:
+
+```js
+import { defineConfig, sharpImageService } from 'astro/config';
+
+export default defineConfig({
+  image: {
+    service: sharpImageService(),
+  },
+});
+```
+
+See [Image Services](/docs/assets/services) for a full comparison of the available services.

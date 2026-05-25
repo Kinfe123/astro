@@ -1,0 +1,39 @@
+---
+title: "Runtime Assets"
+description: "How Astro resolves and emits images referenced inside content collection entries."
+order: 2
+---
+
+# Runtime Assets
+
+Content collection entries can reference local images in their frontmatter. The `content/runtime-assets` module provides the Zod transform that resolves those image paths during the build, emits the image files into the output, and inlines the image metadata so components can access dimensions and paths without extra fetches.
+
+## The `image()` helper
+
+Inside your collection schema, use the `image()` helper to declare a frontmatter field as an image reference:
+
+```ts
+// src/content/config.ts
+import { defineCollection, z } from 'astro:content';
+
+const blog = defineCollection({
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    cover: image(),
+  }),
+});
+
+export const collections = { blog };
+```
+
+At build time, Astro passes a Rollup `PluginContext` to `createImage`, which returns a Zod schema that does three things when it processes a frontmatter value:
+
+1. Resolves the image path relative to the content entry file.
+2. Emits the image file into the build output via Rollup's `emitFile` API.
+3. Returns an object containing the image metadata (width, height, format, and the emitted file path) under an the required value key.
+
+This means you can pass the resolved value directly to the `<Image />` component without any additional imports or path calculations.
+
+## Why this matters
+
+Without this transform, images referenced in frontmatter strings would be treated as plain text and would not be processed by the image pipeline. The `content/runtime-assets` module is what connects the content layer to the asset optimization layer, ensuring that cover images, thumbnails, and other content-adjacent images benefit from the same resizing and format conversion as images imported directly in `.astro` files.

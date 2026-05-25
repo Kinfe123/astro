@@ -1,0 +1,49 @@
+---
+title: "Content"
+description: "Astro's content collections system for managing structured, type-safe content."
+order: 0
+---
+
+# Content
+
+Astro's content collections system gives you a type-safe, file-based CMS built into the framework. You define schemas for your Markdown, MDX, and JSON content, and Astro generates typed query functions so you can fetch entries with full TypeScript inference.
+
+## Defining a collection
+
+Collections live in `src/content/`. You define each collection's schema in `src/content/config.ts` using `defineCollection` and a Zod schema:
+
+```ts
+// src/content/config.ts
+import { defineCollection, z } from 'astro:content';
+
+const blog = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    publishDate: z.date(),
+  }),
+});
+
+export const collections = { blog };
+```
+
+Astro reads this file at build time and generates TypeScript types for every collection.
+
+## Querying entries
+
+Use the `getCollection` function in your page or component frontmatter to fetch all entries in a collection:
+
+```astro
+---
+import { getCollection } from 'astro:content';
+const posts = await getCollection('blog');
+---
+```
+
+`getCollection` is generated at build time by the runtime module (`astro/content/runtime`). It accepts an optional filter function as a second argument so you can exclude draft posts or filter by any frontmatter field.
+
+## Content and data collections
+
+Astro distinguishes between **content** collections (Markdown and MDX files that can be rendered to HTML) and **data** collections (JSON or YAML files). You set the type in `defineCollection` — `'content'` or `'data'`. Both are queried with the same `getCollection` API.
+
+For details on how images referenced inside content files are handled at build time, see [Runtime Assets](/docs/content/runtime-assets).

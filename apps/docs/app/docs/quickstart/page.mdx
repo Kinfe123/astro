@@ -1,0 +1,78 @@
+---
+title: "Quickstart"
+description: "Run Astro for the first time."
+order: 20
+---
+
+# Quickstart
+
+This guide takes you from zero to a running Astro site as fast as possible. By the end you'll have a local dev server running, a page in the browser, and a build you can deploy.
+
+## Create a project
+
+The quickest path is the `create-astro` wizard:
+
+```bash
+npm create astro@latest
+```
+
+Answer the prompts, then move into your new project folder:
+
+```bash
+cd my-astro-site
+```
+
+## Start the dev server
+
+```bash
+npm run dev
+```
+
+Astro starts at `http://localhost:4321` and watches your files for changes. Open that URL in your browser — you should see your starter page.
+
+## Edit your first page
+
+Open `src/pages/index.astro` in your editor. An `.astro` file has two parts: a frontmatter fence (between `---` markers) where you write TypeScript or JavaScript, and an HTML template below it.
+
+```astro
+---
+// src/pages/index.astro
+const greeting = "Hello from Astro!";
+---
+<html lang="en">
+  <head><title>My Site</title></head>
+  <body>
+    <h1>{greeting}</h1>
+  </body>
+</html>
+```
+
+Save the file. The browser reloads automatically and shows your updated heading.
+
+## Build for production
+
+When you're ready to ship, run the build command:
+
+```bash
+npm run build
+```
+
+Astro writes optimized, static HTML to the `dist/` directory. You can preview the production build locally with:
+
+```bash
+npm run preview
+```
+
+## Add an integration
+
+Astro's `astro add` command installs and configures integrations in a single step. To add React support, for example:
+
+```bash
+npx astro add react
+```
+
+The CLI installs the necessary packages, updates `astro.config.mjs`, and adjusts your `tsconfig.json` automatically. Pass `--yes` to skip all confirmation prompts.
+
+## Next steps
+
+You have a working Astro project. From here, read [Configuration](/docs/configuration) to understand `astro.config.mjs`, explore [Image Services](/docs/assets/services) to set up optimized images, or check [Content Collections Runtime](/docs/content/runtime) to learn how Astro manages structured content.

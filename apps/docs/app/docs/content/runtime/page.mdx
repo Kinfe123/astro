@@ -1,0 +1,29 @@
+---
+title: "Content Runtime"
+description: "The generated runtime module that powers getCollection, getEntry, and related query functions."
+order: 1
+---
+
+# Content Runtime
+
+The content runtime module (`astro/content/runtime`) is the implementation behind the `astro:content` virtual module that your pages import from. Astro generates the `astro:content` bindings at build time and wires them to the runtime functions in this module.
+
+## Core functions
+
+`createGetCollection` returns the `getCollection` function for a specific build. It receives maps of content and data collection entries — built from the glob results of your `src/content/` directory — and returns an async function that filters and returns entries for a given collection name.
+
+`createGetEntry` and `createGetEntryBySlug` are similar factories that produce single-entry lookup functions. They are used by the generated `getEntry` and `getEntryBySlug` exports in `astro:content`.
+
+`createGetDataEntryById` does the same for data collections, where entries are identified by an ID rather than a slug.
+
+`createReference` builds a Zod schema for cross-collection references, letting you declare that a frontmatter field points to an entry in another collection.
+
+`defineCollection` is a thin wrapper that sets `config.type` to `'content'` if you omit it, then returns the config unchanged. It exists to provide a named import with a clear intent in `src/content/config.ts`.
+
+## Error handling
+
+When you call `getCollection` with a collection name that does not exist, Astro logs a warning to the console and returns an empty array rather than throwing. This prevents build failures when a collection directory is absent, while still surfacing the issue visibly.
+
+## Rendering content entries
+
+For content-type entries (Markdown and MDX), the runtime handles lazy rendering through `getRenderEntryImport`. When you call `entry.render()` on a content entry, the runtime dynamically imports the compiled component and returns the rendered output along with a `headings` array and `remarkPluginFrontmatter` data.
