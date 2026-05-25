@@ -1,0 +1,33 @@
+---
+title: "Image Endpoint"
+description: "How the built-in /_image endpoint works and when to customize it."
+order: 2
+---
+
+# Image Endpoint
+
+Astro automatically injects a `/_image` route into your project when you use the `<Image />` or `<Picture />` components. This endpoint handles on-demand image transformation in development and in server-rendered deployments.
+
+## Node vs. generic implementation
+
+Astro ships two endpoint implementations. The **Node** implementation (`astro/assets/endpoint/node`) uses Node.js streaming APIs and is loaded in development. The **generic** implementation (`astro/assets/endpoint/generic`) relies only on the Fetch API and is used in production builds targeting non-Node runtimes.
+
+Astro selects the right implementation automatically based on the current mode. You can override the choice by setting `image.endpoint` in your config to the  string of your preferred implementation.
+
+## Customizing the endpoint
+
+If you need different behavior — custom authentication, additional logging, or a different caching strategy — you can point `image.endpoint` at your own module:
+
+```js
+import { defineConfig } from 'astro/config';
+
+export default defineConfig({
+  image: {
+    endpoint: './src/image-endpoint.ts',
+  },
+});
+```
+
+Your module must export a `GET` function that matches the `APIRoute` signature.
+
+> **Note:** In static builds (`output: 'static'`), images are transformed at build time and the `/_image` endpoint is not included in the output.

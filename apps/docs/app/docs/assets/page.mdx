@@ -1,0 +1,35 @@
+---
+title: "Assets"
+description: "Astro's built-in image optimization pipeline: how it works and how to configure it."
+order: 0
+---
+
+# Assets
+
+Astro includes a built-in image optimization pipeline. You import images as ESM assets and Astro handles resizing, format conversion, and cache-busting hashes at build time. In development, images are transformed on demand through the `/_image` endpoint.
+
+## Using the Image component
+
+The `<Image />` component is available from `astro:assets`. Pass a local image import or a remote URL, set the dimensions, and Astro takes care of the rest:
+
+```astro
+---
+import { Image } from 'astro:assets';
+import hero from '../assets/hero.png';
+---
+<Image src={hero} width={800} height={450} alt="Hero" />
+```
+
+For local images, Astro infers `width` and `height` from the source file when you do not supply them, which prevents layout shift.
+
+## Choosing an image service
+
+Astro delegates actual pixel-level transformation to a pluggable image service. You configure it in `astro.config.mjs` under the `image.service` key. Three built-in services are available — see [Image Services](/docs/assets/services) for a full comparison and configuration guide.
+
+## The image endpoint
+
+During development and in server-rendered builds, transformed images are served through a built-in `/_image` endpoint. The endpoint handles fetching remote images, validating that remote domains are allowed, computing ETags for caching, and delegating the actual transform to the configured image service. For more detail, see [Image Endpoint](/docs/assets/endpoint).
+
+## Remote images
+
+By default, Astro only optimizes images from your own project. To allow optimization of images hosted on external domains, list the allowed patterns in `image.remotePatterns` in your config. Requests for domains not in this list are rejected at the endpoint level.

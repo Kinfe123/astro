@@ -1,0 +1,61 @@
+---
+title: "Image Services"
+description: "Compare Sharp, Squoosh, and the passthrough no-op service, and configure the right one for your deployment."
+order: 1
+---
+
+# Image Services
+
+Astro delegates image transformation to a swappable service. You choose a service in `astro.config.mjs` and Astro calls it for every `<Image />` and `<Picture />` component at build time and through the dev server. All three built-in services are imported from `astro/config`.
+
+## Sharp
+
+Sharp is a high-performance Node.js library backed by `libvips`. It is the best choice for most projects deployed to a Node.js environment.
+
+```js
+import { defineConfig, sharpImageService } from 'astro/config';
+
+export default defineConfig({
+  image: {
+    service: sharpImageService(),
+  },
+});
+```
+
+Sharp is installed as an optional dependency. If it is not available in your environment, Astro will warn you at startup.
+
+## Squoosh
+
+Squoosh uses a WebAssembly build of several encoders and works in environments where native binaries like Sharp are unavailable — for example, some edge or serverless runtimes.
+
+```js
+import { defineConfig, squooshImageService } from 'astro/config';
+
+export default defineConfig({
+  image: {
+    service: squooshImageService(),
+  },
+});
+```
+
+Squoosh is generally slower than Sharp for large images but requires no native compilation.
+
+## Passthrough (no-op)
+
+The passthrough service returns images without any transformation. Use it when your deployment platform handles image optimization externally, or when you want to disable optimization without removing the `<Image />` component from your markup.
+
+```js
+import { defineConfig, passthroughImageService } from 'astro/config';
+
+export default defineConfig({
+  image: {
+    service: passthroughImageService(),
+  },
+});
+```
+
+All three helpers are exported from `astro/config` as shown above. The service object each returns has an `` string that Astro uses to load the service module at runtime.
+
+## Custom services
+
+You can author your own image service by implementing the `LocalImageService` or `ExternalImageService` interface from `astro/assets`. The `baseService` export provides a default implementation you can spread and extend.

@@ -1,0 +1,58 @@
+---
+title: "Deployment"
+description: "Run your Astro site outside local development, from containers to static hosts."
+order: 1
+---
+
+# Deployment
+
+Astro can be deployed as a fully static site, a server-rendered application, or anything in between. This page explains the infrastructure requirements and the environment considerations that matter when you move from `npm run dev` to a real host.
+
+## Static deployment
+
+With the default `output: 'static'` config, `npm run build` produces a `dist/` directory of plain HTML, CSS, and JavaScript. Upload that directory to any static host — Vercel, Netlify, Cloudflare Pages, or a plain CDN — and you're done. No server process is needed.
+
+## Server-side rendering
+
+To serve dynamic pages, set `output: 'server'` in `astro.config.mjs` and add an adapter that matches your runtime. For example, to run on Node.js:
+
+```bash
+npx astro add node
+```
+
+Astro injects the adapter into your config automatically. The build then produces a `dist/` folder with a server  instead of static files.
+
+## Container environments
+
+The repository ships Dockerfiles for both the development container and several example projects. All of them target **Node.js 18**:
+
+```dockerfile
+FROM node:18-bullseye
+```
+
+Your production image should use the same major version. The minimum supported Node.js version is `18.14.1`.
+
+For the development container (`.devcontainer/`), pnpm is installed globally alongside Playwright for end-to-end testing. Your production image does not need either of those.
+
+## Environment variables
+
+Astro itself reads a small set of environment variables at build and runtime:
+
+- `PACKAGE_VERSION` — the version string embedded in the built output, read from `packages/astro/src/core/constants.ts`.
+- `ASTRO_TIMER_PATH` — when set, Astro writes build timing information to this path, useful for CI performance tracking.
+- `GITPOD_REPO_ROOT` — used by the `astro docs` CLI command to detect Gitpod environments and open docs correctly.
+
+Application-level env vars (anything your pages or components read) should follow your host platform's secrets management. In local development, Astro reads `.env` files via Vite's standard env handling.
+
+## Verifying a production build
+
+Before pushing to a host, run the production build locally and preview it:
+
+```bash
+npm run build
+npm run preview
+```
+
+The preview server serves the `dist/` output and behaves like a static host. Check that all pages load, images resolve, and any server endpoints respond as expected.
+
+> **Note:** The preview server is not a production server. Use it only for local verification before deploying.

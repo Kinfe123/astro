@@ -1,0 +1,93 @@
+---
+title: "Installation"
+description: "Install and configure Astro."
+order: 10
+---
+
+# Installation
+
+This page covers two ways to get Astro installed: the recommended interactive wizard and a manual step-by-step setup.
+
+## Prerequisites
+
+Before you install, make sure you have:
+
+- **Node.js** `>=18.14.1`
+- **npm**, **pnpm**, or **yarn** — any package manager works for new projects
+
+## Recommended: interactive wizard
+
+The fastest way to create a new Astro project is through the `create-astro` wizard. It scaffolds a project, installs dependencies, and sets up TypeScript in a single command.
+
+```bash
+npm create astro@latest
+```
+
+The wizard asks you a few questions — project name, starter template, TypeScript strictness — and then hands you a ready-to-run project.
+
+> **Note:** You can also open a starter project directly in your browser at [astro.new](https://astro.new/) without installing anything locally.
+
+## Manual installation
+
+If you prefer full control, you can add Astro to an existing directory yourself.
+
+**1. Install the package:**
+
+```bash
+npm install --save-dev astro
+```
+
+**2. Add the `dev` and `build` scripts to your `package.json`:**
+
+```json
+{
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  }
+}
+```
+
+**3. Create a minimal config file at the project root:**
+
+```js
+// astro.config.mjs
+import { defineConfig } from 'astro/config';
+
+export default defineConfig({});
+```
+
+**4. Create your first page at `src/pages/index.astro`:**
+
+```astro
+---
+// src/pages/index.astro
+---
+<html lang="en">
+  <head><title>My Astro Site</title></head>
+  <body><h1>Hello, Astro!</h1></body>
+</html>
+```
+
+**5. Start the dev server:**
+
+```bash
+npm run dev
+```
+
+Astro starts a local server at `http://localhost:4321`. You should see your page in the browser.
+
+## Verify the install
+
+Run `astro --version` to confirm the CLI is available:
+
+```bash
+npx astro --version
+```
+
+You should see the installed version number printed to the terminal.
+
+## Next steps
+
+With Astro installed, head to [Quickstart](/docs/quickstart) for a walkthrough of your first real page, or jump straight to [Configuration](/docs/configuration) to see what you can tune in `astro.config.mjs`.
