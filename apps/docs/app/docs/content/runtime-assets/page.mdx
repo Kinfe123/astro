@@ -1,0 +1,41 @@
+---
+title: "Runtime Assets"
+description: "How image fields inside content collection schemas are resolved and emitted as optimized assets."
+order: 2
+---
+
+# Runtime Assets
+
+When you define an image field in a content collection schema, Astro needs to resolve the relative image path written in a Markdown file, locate the actual file on disk, and register it with the Vite asset pipeline so it gets processed and hashed like any other imported image. The `astro/content/runtime-assets` module handles this bridge.
+
+## `createImage`
+
+The single export from this module is `createImage`, a factory that returns a Zod transform. You use it in your collection schema to declare that a string field should be treated as an image path:
+
+```ts
+import { defineCollection, z } from 'astro:content';
+import { createImage } from 'astro/content/runtime-assets';
+
+const blog = defineCollection({
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    cover: image(),
+  }),
+});
+```
+
+> **Note:** In practice you use the `image()` helper provided by `defineCollection`'s schema callback rather than importing `createImage` directly. The helper is the public API; `createImage` is the implementation it wraps.
+
+## What the transform does
+
+When Astro processes a content entry, the Zod transform in the image schema field:
+
+1. Resolves the image path string relative to the entry file using Rollup's `pluginContext.resolve`.
+2. Calls `emitESMImage` to register the file with the build's asset emitter, which gives it a hashed output filename.
+3. Returns a metadata object that includes width, height, format, and the the required value marker used internally by the `<Image />` component.
+
+If the image path cannot be resolved (file not found, typo in the path), the transform adds a Zod issue with a descriptive message and returns `z.never()`, failing validation for that entry.
+
+## Watch mode
+
+The transform passes `pluginContext.meta.watchMode` to `emitESMImage`. In watch mode (during `astro dev`) images are resolved on demand; in build mode they are emitted to the output directory.

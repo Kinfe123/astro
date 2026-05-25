@@ -1,0 +1,73 @@
+---
+title: "Quickstart"
+description: "Run Astro for the first time."
+order: 20
+---
+
+# Quickstart
+
+This guide takes you from zero to a running Astro dev server. You'll scaffold a project, start the server, and understand the file that drives your first page — all in a handful of commands.
+
+## 1. Create a new project
+
+Run the scaffolding wizard and follow the prompts:
+
+```bash
+npm create astro@latest
+```
+
+Give your project a name, pick a starter template (the "Empty" template is the cleanest starting point), and let the wizard install dependencies.
+
+## 2. Start the development server
+
+Move into your new project directory and start Astro:
+
+```bash
+cd my-project
+npm run dev
+```
+
+The terminal will print something like:
+
+```
+🚀 astro  v4.x.x  ready in 312ms
+
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+```
+
+Open `http://localhost:4321` in your browser. You should see the starter page.
+
+## 3. Edit your first page
+
+Open `src/pages/index.astro`. It contains an Astro component: a fenced frontmatter block (`---`) followed by HTML. Change the heading text and save — the browser refreshes automatically.
+
+```astro
+---
+// Component script (runs at build / request time, never in the browser)
+const greeting = "Hello, Astro!";
+---
+
+<html lang="en">
+  <head>
+    <title>My Astro Site</title>
+  </head>
+  <body>
+    <h1>{greeting}</h1>
+  </body>
+</html>
+```
+
+## 4. Build for production
+
+When you're ready to produce a static output:
+
+```bash
+npm run build
+```
+
+Astro writes optimized HTML, CSS, and any required assets to the `dist/` directory. Preview the output locally before deploying:
+
+```bash
+npm run preview
+```

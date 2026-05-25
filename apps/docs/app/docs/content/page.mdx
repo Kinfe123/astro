@@ -1,0 +1,58 @@
+---
+title: "Content"
+description: "Astro's content collections system — define schemas, query entries, and render Markdown or MDX."
+order: 0
+---
+
+# Content
+
+Astro's content collections give you a type-safe way to manage local Markdown, MDX, and data files. You define a schema with Zod, and Astro validates every file in that collection against it at build time — so a missing `title` field in a blog post becomes a build error rather than a runtime surprise.
+
+## Defining a collection
+
+Create a `src/content/config.ts` file and call `defineCollection` with a schema:
+
+```ts
+import { defineCollection, z } from 'astro:content';
+
+const blog = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    pubDate: z.date(),
+    description: z.string().optional(),
+  }),
+});
+
+export const collections = { blog };
+```
+
+Astro reads this file automatically and generates TypeScript types for every collection entry.
+
+## Querying entries
+
+Use the generated query helpers inside your page frontmatter:
+
+```astro
+---
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+---
+
+<ul>
+  {posts.map(post => (
+    <li><a href={`/blog/${post.slug}`}>{post.data.title}</a></li>
+  ))}
+</ul>
+```
+
+The `getCollection` function is powered by the runtime helpers in `astro/content/runtime` — see [Content Runtime](/docs/content/runtime) for the implementation details. For how images inside content entries are resolved and emitted as assets, see [Runtime Assets](/docs/content/runtime-assets).
+
+## Two collection types
+
+Set `type: 'content'` for Markdown and MDX files — each entry has a `render()` method and a `slug`. Set `type: 'data'` for JSON or YAML files — no `render()`, but the full schema validation still applies.
+
+## Next steps
+
+Learn how collection query helpers are implemented in [Content Runtime](/docs/content/runtime), and how image fields in content schemas are handled in [Runtime Assets](/docs/content/runtime-assets).

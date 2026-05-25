@@ -1,0 +1,70 @@
+---
+title: "Installation"
+description: "Install and configure Astro."
+order: 10
+---
+
+# Installation
+
+This page walks you through adding Astro to a project — either by scaffolding a fresh one with the interactive CLI wizard or by installing the package manually into an existing codebase.
+
+## Prerequisites
+
+Before you begin, make sure your environment meets these requirements:
+
+- **Node.js** `>=18.14.1`
+- **pnpm** `>=8.6.12` (the monorepo enforces pnpm via a `preinstall` guard; for your own projects any package manager works)
+
+## Recommended: scaffold with `create-astro`
+
+The fastest way to start is the scaffolding wizard. It creates a new project directory, installs dependencies, and optionally sets up TypeScript and a starter template.
+
+```bash
+npm create astro@latest
+```
+
+Follow the prompts to choose a template, configure TypeScript, and install dependencies. When it finishes you'll have a working project you can open immediately.
+
+## Manual installation
+
+If you're adding Astro to an existing project, install it as a dev dependency:
+
+```bash
+npm install --save-dev astro
+```
+
+Then add the dev and build scripts to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  }
+}
+```
+
+Create a minimal `astro.config.mjs` at the project root:
+
+```js
+import { defineConfig } from 'astro/config';
+
+export default defineConfig({});
+```
+
+## Verify the installation
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Astro prints the local address (default `http://localhost:4321`) to the terminal. Open that URL in a browser — if you see a page render, the install succeeded.
+
+> **Note:** If you scaffolded with `create-astro`, your project already has a `src/pages/index.astro` file. For a manual install you'll need to create one before anything will render.
+
+## Next steps
+
+Once Astro is installed, head to [Quickstart](/docs/quickstart) to build your first page, or jump straight to [Configuration](/docs/configuration) to learn how `astro.config.mjs` controls your project.
