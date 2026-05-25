@@ -1,0 +1,58 @@
+---
+title: "Assets"
+description: "Astro's built-in image optimization pipeline: how it works and where to configure it."
+order: 0
+---
+
+# Assets
+
+Astro includes a built-in image optimization pipeline that processes local and remote images at build time and in the dev server. It resizes images, converts formats, applies quality settings, and serves the result through a dedicated endpoint.
+
+## Using images in `.astro` files
+
+Import a local image and pass it to the built-in `<Image />` component:
+
+```astro
+---
+import { Image } from 'astro:assets';
+import hero from '../assets/hero.jpg';
+---
+
+<Image src={hero} width={800} alt="Hero" />
+```
+
+Astro resolves the file at build time, generates an optimized version, and replaces the `src` with a content-hashed URL. The `alt` attribute is required.
+
+## Configuring the image service
+
+The image service controls how transformation happens. You set it in `astro.config.mjs` using one of the service helpers exported from `astro/config`. Sharp is the default for most Node.js environments:
+
+```js
+import { defineConfig, sharpImageService } from 'astro/config';
+
+export default defineConfig({
+  image: {
+    service: sharpImageService(),
+  },
+});
+```
+
+For platforms where Sharp is unavailable, use `squooshImageService()` or `passthroughImageService()`. See [Image Services](/docs/assets/services) for a comparison.
+
+## Remote images
+
+Remote images are allowed only from explicitly listed sources. Add the hostname to `image.domains` or use `image.remotePatterns` for path-level control:
+
+```js
+export default defineConfig({
+  image: {
+    domains: ['images.unsplash.com'],
+  },
+});
+```
+
+Attempting to optimize an image from an unlisted host throws an error at build time.
+
+## The image endpoint
+
+In development and SSR builds, Astro injects a `/_image` route that performs image transformations on demand. The endpoint implementation varies by runtime: Node.js uses `astro/assets/endpoint/node`, while generic runtimes use `astro/assets/endpoint/generic`. See [Endpoint](/docs/assets/endpoint) for details.

@@ -1,0 +1,73 @@
+---
+title: "Deployment"
+description: "Run your Astro site in production using static output, Node.js, or a container."
+order: 1
+---
+
+# Deployment
+
+Astro builds to static HTML by default, which means any static host — a CDN, object storage bucket, or simple file server — can serve your site. This page explains the standard production build workflow and how to run Astro inside a container.
+
+## Building for production
+
+Run the production build from your project root:
+
+```bash
+npm run build
+```
+
+Astro writes the output to `dist/`. The contents are plain HTML, CSS, and JS files ready to be deployed. Preview the built output locally before shipping:
+
+```bash
+npm run preview
+```
+
+## Node.js server
+
+For SSR (server-side rendering) or API routes, add the Node.js adapter and set `output` to `'server'` or `'hybrid'` in your config:
+
+```js
+// astro.config.mjs
+import { defineConfig } from 'astro/config';
+import node from '@astrojs/node';
+
+export default defineConfig({
+  output: 'server',
+  adapter: node({ mode: 'standalone' }),
+});
+```
+
+After building, start the server with:
+
+```bash
+node ./dist/server/entry.mjs
+```
+
+## Container deployments
+
+The repository ships Dockerfiles for development containers and several example projects. They all use Node.js 18 as the base image, which matches the minimum runtime requirement (`>=18.14.1`).
+
+A minimal production Dockerfile for an Astro site looks like this:
+
+```dockerfile
+FROM node:18-bullseye
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+EXPOSE 4321
+CMD ["node", "./dist/server/entry.mjs"]
+```
+
+> **Note:** Static output (`output: 'static'`) does not need a Node.js server. Copy the `dist/` directory to any static host or serve it with a web server like nginx.
+
+## Environment variables in production
+
+Astro exposes environment variables prefixed with `PUBLIC_` to the client. All others are server-only. Set them in your platform's environment configuration or in a `.env` file that is **not** committed to version control.
+
+## Next steps
+
+Return to [Configuration](/docs/configuration) for an overview of `astro.config.mjs` options, or see [Image Services](/docs/assets/services) if you need image optimization in your production build.

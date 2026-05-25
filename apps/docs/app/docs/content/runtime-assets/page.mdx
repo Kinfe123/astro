@@ -1,0 +1,42 @@
+---
+title: "Runtime Assets"
+description: "How Astro resolves and emits images referenced inside content collection schemas."
+order: 2
+---
+
+# Runtime Assets
+
+When you reference a local image from inside a content collection schema, Astro needs to resolve the file path relative to the content entry, emit it through the asset pipeline, and attach the resulting metadata to the collection entry at query time. The `astro/content/runtime-assets` module is what makes that happen.
+
+## The `image()` helper
+
+Inside your `src/content/config.ts`, use `image()` to mark a schema field as an image reference:
+
+```ts
+import { defineCollection, z } from 'astro:content';
+
+const blog = defineCollection({
+  schema: ({ image }) => z.object({
+    cover: image(),
+    title: z.string(),
+  }),
+});
+```
+
+Astro passes an `image()` factory into the schema callback. The factory is created by `createImage` in `astro/content/runtime-assets`, which closes over the Rollup plugin context and the entry file path.
+
+## `createImage`
+
+`createImage` returns a Zod transformer. When Astro validates a collection entry, the transformer:
+
+1. Resolves the image path string relative to the entry file using Rollup's `pluginContext.resolve`.
+2. Calls `emitESMImage` to register the file with Rollup's asset pipeline and get back metadata (width, height, format, `fsPath`).
+3. Returns an object with the image metadata merged with an the required value property pointing to the file system path.
+
+If the file cannot be resolved, Zod reports a validation error with the image path so you see exactly which entry has a broken image reference.
+
+## Watch mode behavior
+
+`createImage` receives the Rollup plugin context's `watchMode` flag. In development (watch mode on), Astro re-processes image assets when files change, keeping hot reload working for images referenced from content collections.
+
+> **Note:** The `image()` helper is only available inside the schema callback form of `defineCollection`. Passing a plain Zod object without the callback will not have access to the helper.

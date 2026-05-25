@@ -1,0 +1,28 @@
+---
+title: "Image Endpoint"
+description: "How Astro's /_image route serves optimized images in development and SSR builds."
+order: 2
+---
+
+# Image Endpoint
+
+Astro injects a `/_image` endpoint into your project during development and in SSR builds. This endpoint handles on-demand image transformation requests — it receives an image URL or path as a query parameter, runs it through the configured image service, and returns the optimized response.
+
+## How the endpoint is selected
+
+The endpoint implementation is chosen automatically based on the runtime:
+
+- In development, `astro/assets/endpoint/node` is used, which streams the response using Node.js file system APIs.
+- In production builds, `astro/assets/endpoint/generic` is used by default. It uses the Fetch API to load remote images and is compatible with any runtime that supports the web Fetch standard.
+
+You can override the default by setting `image.endpoint` in your config to a custom  path.
+
+## The generic endpoint
+
+The generic `GET` handler verifies that the requested image source is allowed by your `image.domains` or `image.remotePatterns` configuration before fetching and transforming it. Requests for disallowed sources are rejected. It also sets an `ETag` header on the response for efficient browser caching.
+
+## Static builds
+
+In a fully static build (`output: 'static'`), Astro pre-generates all optimized image variants at build time and writes them to `dist/`. The `/_image` endpoint is not present in the static output — there is no dynamic image route to hit at runtime.
+
+> **Note:** If you use `<Image />` with a `src` that cannot be resolved at build time (for example, a dynamic URL), you must use SSR mode so the endpoint is available at runtime.

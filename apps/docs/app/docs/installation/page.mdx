@@ -1,0 +1,71 @@
+---
+title: "Installation"
+description: "Install and configure Astro."
+order: 10
+---
+
+# Installation
+
+This page covers both ways to add Astro to a project: the recommended interactive scaffolding wizard and a manual install for when you need more control.
+
+## Prerequisites
+
+- **Node.js** `>=18.14.1`
+- **pnpm** `>=8.6.12` (the repository enforces pnpm via a `preinstall` hook; you can also use npm or yarn for your own project)
+
+## Recommended: scaffolding wizard
+
+The fastest path is `create-astro`, which asks a few questions and generates a complete project:
+
+```bash
+npm create astro@latest
+```
+
+The wizard sets up a `package.json`, an `astro.config.mjs`, a `tsconfig.json`, and a starter page. When it finishes, follow the printed instructions to change into the new directory and start the dev server.
+
+## Manual install
+
+If you're adding Astro to an existing project or want full control over the file structure, install the package directly:
+
+```bash
+npm install --save-dev astro
+```
+
+Then create a minimal config file at the root of your project:
+
+```js
+// astro.config.mjs
+import { defineConfig } from 'astro/config';
+
+export default defineConfig({});
+```
+
+Add the standard scripts to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  }
+}
+```
+
+Create a `src/pages/index.astro` file with any content and run `npm run dev` to verify the server starts.
+
+## Verifying the install
+
+After setup, run the dev server:
+
+```bash
+npm run dev
+```
+
+Astro prints the local URL (default `http://localhost:4321`) once the server is ready. Opening that URL in a browser confirms the install is working.
+
+> **Note:** Astro requires Node.js 18.14.1 or later. Run `node --version` to confirm before installing.
+
+## Next steps
+
+With Astro installed, head to [Quickstart](/docs/quickstart) to build your first page, or jump to [Configuration](/docs/configuration) to learn how `astro.config.mjs` controls your project.

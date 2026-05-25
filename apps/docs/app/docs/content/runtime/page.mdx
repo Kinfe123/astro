@@ -1,0 +1,43 @@
+---
+title: "Content Runtime"
+description: "The internal runtime module that powers content collection queries in Astro."
+order: 1
+---
+
+# Content Runtime
+
+The content runtime module (`astro/content/runtime`) is the code Astro's build step generates virtual modules from. It provides the query functions that your pages call through `astro:content`. Understanding this module is useful when extending Astro's content system or debugging unexpected collection behavior.
+
+## `defineCollection`
+
+`defineCollection` marks an object as a collection definition and sets `type` to `'content'` if not specified. It is a thin wrapper — the real validation work happens at build time when Astro scans your `src/content/config.ts`.
+
+## `getCollection`
+
+`createGetCollection` builds the `getCollection` function for your project. It receives two lookup maps — one for Markdown/MDX content collections and one for data collections — and returns an async function that:
+
+1. Determines the collection type by checking which map contains the requested name.
+2. Imports all entries lazily using the glob result map.
+3. Applies an optional filter function before returning.
+
+If the collection name is not found in either map, `getCollection` logs a warning and returns an empty array rather than throwing.
+
+## `getEntry` and related helpers
+
+`createGetEntry`, `createGetEntryBySlug`, `createGetDataEntryById`, and `createGetEntries` each build a scoped query function for fetching individual entries. They follow the same lazy-import pattern as `getCollection`, resolving the entry module only when you call the function.
+
+## `createReference`
+
+`createReference` produces a Zod schema type for referencing an entry in another collection by its slug or ID. Use it inside `defineCollection` schemas to model relations between collections:
+
+```ts
+import { defineCollection, reference, z } from 'astro:content';
+
+const blog = defineCollection({
+  schema: z.object({
+    author: reference('authors'),
+  }),
+});
+```
+
+At query time, you resolve references by calling `getEntry` with the reference value.

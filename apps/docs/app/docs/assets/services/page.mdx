@@ -1,0 +1,53 @@
+---
+title: "Image Services"
+description: "Choose and configure the image transformation service that Astro uses to optimize your images."
+order: 1
+---
+
+# Image Services
+
+Astro delegates image transformation to a pluggable service layer. Three services ship with the package, and you can build a custom one by implementing the `ImageService` interface.
+
+## Choosing a service
+
+Set the service in `astro.config.mjs` using the helper functions from `astro/config`:
+
+```js
+import { defineConfig, sharpImageService } from 'astro/config';
+
+export default defineConfig({
+  image: {
+    service: sharpImageService(),
+  },
+});
+```
+
+**Sharp** (`sharpImageService()`) is the recommended service for Node.js deployments. It uses native binaries and produces the smallest output files across the widest range of formats.
+
+**Squoosh** (`squooshImageService()`) is a WebAssembly-based alternative. It requires no native binaries, making it useful in environments where Sharp cannot be installed, though it is slower for large images.
+
+**Passthrough** (`passthroughImageService()`) disables transformation entirely. Images are returned as-is. Use this on platforms where neither Sharp nor Squoosh is available, or when you want to handle optimization externally.
+
+## The service interface
+
+Every image service is a `LocalImageService` or `ExternalImageService`. A local service implements a `transform` method that receives an input buffer and a set of transform options, and returns the processed buffer and format. The `baseService` object provides sensible defaults you can spread into a custom local service:
+
+```ts
+import { baseService } from 'astro/assets/services/service';
+
+const myService = {
+  ...baseService,
+  async transform(inputBuffer, transformOptions) {
+    // custom transformation logic
+    return { data: inputBuffer, format: transformOptions.format };
+  },
+};
+
+export default myService;
+```
+
+An external service, by contrast, generates a URL rather than transforming a buffer — useful when you delegate to a third-party image CDN.
+
+## Allowed image properties
+
+Each local service declares a `propertiesToHash` array listing which image properties participate in cache-key generation. This controls when Astro regenerates an optimized image versus reusing a cached one.
