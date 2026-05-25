@@ -1,0 +1,46 @@
+---
+title: "Assets"
+description: "How Astro handles images and other static assets — optimization services, the image endpoint, and build output."
+order: 0
+---
+
+# Assets
+
+Astro has a first-class asset pipeline that optimizes images at build time and on demand during development. You reference images in your `.astro` files with the built-in `<Image />` component, and Astro takes care of resizing, reformatting, and hashing the output for long-lived caching.
+
+The pipeline has two main pieces:
+
+**Image services** — Pluggable backends that perform the actual image transformation. The three built-in options are Sharp (native, fast), Squoosh (Wasm, portable), and passthrough (no-op). You configure which one to use in `astro.config.mjs`. See [Image Services](/docs/assets/services) for the full comparison and configuration details.
+
+**Image endpoint** — An HTTP endpoint at `/_image` that Astro injects automatically. During development it handles on-demand image transformation requests from the browser. In SSR builds it is included in the server bundle. In static builds it is not needed because images are transformed at build time. See [Endpoint](/docs/assets/endpoint) for how this route is registered and how to override it.
+
+## Using the Image component
+
+Import images as ESM modules and pass them to `<Image />`:
+
+```astro
+---
+import { Image } from 'astro:assets';
+import heroImage from '../assets/hero.jpg';
+---
+
+<Image src={heroImage} alt="A hero image" width={800} height={400} />
+```
+
+Astro reads the image dimensions from the imported module, validates the `alt` attribute, and produces an optimized `<img>` tag with a hashed filename.
+
+## Remote images
+
+To use images from external URLs, add their hostnames to `image.domains` in your config. Unlisted domains are blocked:
+
+```js
+export default defineConfig({
+  image: {
+    domains: ['images.unsplash.com'],
+  },
+});
+```
+
+## Next steps
+
+Choose your image processing backend in [Image Services](/docs/assets/services), or learn how the image route is injected in [Endpoint](/docs/assets/endpoint).

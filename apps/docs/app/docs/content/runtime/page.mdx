@@ -1,0 +1,31 @@
+---
+title: "Content Runtime"
+description: "The runtime helpers that back getCollection, getEntry, and content rendering in Astro."
+order: 1
+---
+
+# Content Runtime
+
+The `astro/content/runtime` module contains the functions that back the `astro:content` virtual module your pages import from. You never call these helpers directly — Astro's build system generates a thin wrapper that wires them together with your project's collection glob maps. Understanding them is useful if you're building an integration or debugging unexpected collection behavior.
+
+## Key functions
+
+`defineCollection(config)` — Registers a collection with an optional type (`'content'` or `'data'`) and Zod schema. If no `type` is provided it defaults to `'content'`.
+
+`createGetCollection({ contentCollectionToEntryMap, dataCollectionToEntryMap, getRenderEntryImport })` — Factory that returns the `getCollection` function used in pages. It resolves whether the requested collection is a content or data collection and performs lazy loading of the matching entry files. If the collection name does not exist in either map, it logs a warning and returns an empty array rather than throwing.
+
+`createGetEntry` / `createGetEntryBySlug` / `createGetDataEntryById` — Similar factories that return single-entry lookup functions. They resolve the collection type and entry identifier, then lazily import the entry module.
+
+`createGetEntries` — Returns a function that accepts an array of entry references and resolves them in parallel.
+
+`createReference(collection)` — Returns a Zod schema for a reference to another collection entry. Use this in your `src/content/config.ts` to create typed relationships between collections.
+
+`createCollectionToGlobResultMap` — Converts a `import.meta.glob` result into the `CollectionToEntryMap` shape the query helpers expect.
+
+## Lazy loading
+
+Collection entries are not imported eagerly. The glob maps hold factory functions (`() => Promise<any>`) and each entry is only loaded when it is actually requested. This keeps cold-start time fast even in projects with hundreds of content files.
+
+## Error handling
+
+The runtime uses `AstroError` with codes from `AstroErrorData` to surface problems. For example, requesting an entry that doesn't exist, or passing a slug to `getDataEntryById`, produces a typed error with a clear message rather than a generic `undefined` return.

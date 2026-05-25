@@ -1,0 +1,71 @@
+---
+title: "Image Services"
+description: "Compare the three built-in image services and learn how to configure or replace them."
+order: 1
+---
+
+# Image Services
+
+Astro's image pipeline is backed by a swappable service layer. A service receives a raw image buffer and a set of transform options, and returns an optimized buffer. You configure the active service in `astro.config.mjs` via the `image.service` option.
+
+## Built-in services
+
+### Sharp (`astro/assets/services/sharp`)
+
+Sharp uses libvips under the hood — it is the fastest option and produces the smallest output. Use it on any Node.js host where native binaries can install:
+
+```js
+import { defineConfig, sharpImageService } from 'astro/config';
+
+export default defineConfig({
+  image: { service: sharpImageService() },
+});
+```
+
+`sharpImageService` accepts an optional config object that is forwarded directly to Sharp's resize options.
+
+### Squoosh (`astro/assets/services/squoosh`)
+
+Squoosh uses a Wasm codec and works in environments where native binaries cannot be installed (some edge runtimes, restricted CI images). It is slower than Sharp but fully portable:
+
+```js
+import { defineConfig, squooshImageService } from 'astro/config';
+
+export default defineConfig({
+  image: { service: squooshImageService() },
+});
+```
+
+### Passthrough (`astro/assets/services/noop`)
+
+The passthrough service returns the input buffer unchanged. It exists for platforms that support neither Sharp nor Squoosh, or for projects that handle image optimization outside Astro. The `format` from the transform options is preserved in the response, but no actual transformation is applied:
+
+```js
+import { defineConfig, passthroughImageService } from 'astro/config';
+
+export default defineConfig({
+  image: { service: passthroughImageService() },
+});
+```
+
+## Service contract
+
+All services implement the `ImageService` type exported from `astro/assets/services/service`. A **local service** implements a `transform(inputBuffer, transformOptions)` method and is invoked inside the Astro process. An **external service** instead provides a `getURL(options)` method that returns a CDN URL, leaving transformation to the external provider.
+
+`baseService` is an exported object that contains the default implementations of the non-transform methods (URL parsing, property hashing, etc.). When writing a custom local service, spread `baseService` and override only `transform`:
+
+```ts
+import { baseService } from 'astro/assets/services/service';
+
+const myService = {
+  ...baseService,
+  async transform(inputBuffer, transformOptions) {
+    // your transform logic
+    return { data: inputBuffer, format: transformOptions.format };
+  },
+};
+
+export default myService;
+```
+
+Point `image.service.` at your module and Astro will load it automatically.

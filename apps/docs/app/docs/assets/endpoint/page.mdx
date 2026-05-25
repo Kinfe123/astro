@@ -1,0 +1,53 @@
+---
+title: "Image Endpoint"
+description: "How the /_image route is registered, which service it delegates to, and how to override it."
+order: 2
+---
+
+# Image Endpoint
+
+Astro automatically injects an HTTP route at `/_image` to serve optimized images on demand. During development this route is handled by the Node.js-backed endpoint (`astro/assets/endpoint/node`). In SSR production builds it uses a generic fetch-based endpoint (`astro/assets/endpoint/generic`). Static builds don't use the endpoint at all — images are transformed ahead of time.
+
+## Route injection
+
+The injection happens inside `injectImageEndpoint`, which reads `settings.config.image.endpoint` to decide which module to load:
+
+```ts
+// Simplified from packages/astro/src/assets/endpoint/config.ts
+const endpointEntrypoint =
+  settings.config.image.endpoint ??
+  (mode === 'dev' ? 'astro/assets/endpoint/node' : 'astro/assets/endpoint/generic');
+
+settings.injectedRoutes.push({
+  pattern: '/_image',
+  : endpointEntrypoint,
+  prerender: false,
+});
+```
+
+The route is always dynamic (`prerender: false`) because the transformation parameters arrive as query string arguments at request time.
+
+## Request handling
+
+The generic endpoint exports a `GET` handler that:
+
+1. Reads the image URL and transform parameters from the request query string.
+2. Loads the configured image service via `getConfiguredImageService()`.
+3. Fetches the source image (local file or remote URL, subject to `image.domains` allowlist).
+4. Runs the transform and returns the result with appropriate `Content-Type` and `ETag` headers.
+
+Remote images from domains not listed in `image.domains` are rejected with a `400` error.
+
+## Overriding the endpoint
+
+If you need custom logic — rate limiting, authentication, a different cache strategy — set `image.endpoint` in your config to the path of your own module:
+
+```js
+export default defineConfig({
+  image: {
+    endpoint: './src/image-endpoint.ts',
+  },
+});
+```
+
+Your module must export a `GET` handler that conforms to the `APIRoute` type.

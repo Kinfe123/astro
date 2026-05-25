@@ -1,0 +1,58 @@
+---
+title: "Configuration"
+description: "Environment, framework, and project settings required to run Astro."
+order: 0
+---
+
+# Configuration
+
+Astro projects are configured through a single `astro.config.mjs` file at the project root. You import `defineConfig` from `astro/config`, wrap your options object, and Astro validates the shape at startup. The file is optional — Astro falls back to sensible defaults — but you'll almost always want one.
+
+## The config file
+
+A minimal config looks like this:
+
+```js
+import { defineConfig } from 'astro/config';
+
+export default defineConfig({
+  site: 'https://example.com',
+  base: '/',
+});
+```
+
+`defineConfig` is a typed wrapper that gives you editor autocompletion and compile-time validation. You don't have to use it, but there's no reason not to.
+
+## Common top-level options
+
+- `site` — The full URL of your deployed site. Astro uses this to generate canonical URLs and the sitemap.
+- `base` — The base path your site is deployed under, e.g. `'/docs'` for a site at `example.com/docs`. Defaults to `'/'`.
+- `outDir` — Where `astro build` writes its output. Defaults to `./dist`.
+- `srcDir` — Where Astro looks for pages and components. Defaults to `./src`.
+- `integrations` — An array of official or community integrations (React, Tailwind, MDX, etc.).
+
+## Image service
+
+Astro ships with three built-in image processing services, selected via the `image.service` option:
+
+```js
+import { defineConfig, sharpImageService } from 'astro/config';
+
+export default defineConfig({
+  image: {
+    service: sharpImageService(),
+  },
+});
+```
+
+The `sharpImageService` helper is exported from `astro/config`. The alternatives are `squooshImageService()` (Wasm-based, works on any platform) and `passthroughImageService()` (disables optimization). See [Image Services](/docs/assets/services) for the full comparison.
+
+## Environment variables
+
+Astro reads a small number of internal environment variables at runtime. You generally do not set these in day-to-day development, but they matter when running in custom environments:
+
+- `ASTRO_TIMER_PATH` — Overrides the path to the internal build timer module.
+- `GITPOD_REPO_ROOT` — Detected automatically in Gitpod to open the correct browser URL for the dev server.
+- `PACKAGE_VERSION` — Injected at build time; reflects the current `astro` package version.
+
+For per-project environment variables exposed to your site code, use a `.env` file at the project root. Astro passes `import.meta.env` variables to your components at build time.
