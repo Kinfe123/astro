@@ -1,0 +1,54 @@
+---
+title: "Configuration"
+description: "Understand astro.config.mjs and the settings that control your Astro project."
+order: 0
+---
+
+# Configuration
+
+Astro reads your project settings from `astro.config.mjs` in your project root. You create this file with `defineConfig`, which gives you editor autocompletion and type checking on every option.
+
+```js
+// astro.config.mjs
+import { defineConfig } from 'astro/config';
+
+export default defineConfig({
+  site: 'https://example.com',
+  base: '/my-app',
+});
+```
+
+`defineConfig` is a pass-through helper — it accepts the configuration object, validates it, and returns it unchanged. Its main job is enabling TypeScript inference on the options you pass.
+
+## Locating the config file
+
+By default Astro looks for `astro.config.mjs` (or `.ts`, `.cjs`, `.mts`) at your project root. You can point to a different file with the `--config` flag:
+
+```bash
+astro dev --config ./config/astro.config.mjs
+```
+
+## Common options
+
+The most frequently used top-level options are:
+
+- `site` — The full URL of your deployed site. Astro uses this to generate canonical URLs and sitemaps.
+- `base` — A subpath prefix for all pages and assets, useful when deploying under a subdirectory.
+- `outDir` — Where the built output is written (defaults to `dist/`).
+- `integrations` — An array of Astro integrations for UI frameworks, SSR adapters, and plugins.
+- `image` — Controls the image optimization service used at build and dev time. See [Image Services](/docs/assets/services) for the available options.
+
+## Integrations
+
+```js
+import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+
+export default defineConfig({
+  integrations: [react()],
+});
+```
+
+## Deployment configuration
+
+For settings specific to running your site outside local development — including Docker and platform targets — see [Deployment](/docs/configuration/deployment).

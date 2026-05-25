@@ -1,0 +1,56 @@
+---
+title: "Content"
+description: "Astro's content collections system: define, validate, and query structured content with full type safety."
+order: 0
+---
+
+# Content
+
+Astro's content collections system gives you a structured, type-safe way to work with Markdown, MDX, and data files in your project. You define a schema for each collection, and Astro validates every entry against it at build time, generating TypeScript types you can use in your pages and components.
+
+## Defining a collection
+
+Create a `src/content/config.ts` file and export your collections using `defineCollection`:
+
+```ts
+import { defineCollection, z } from 'astro:content';
+
+const blog = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    pubDate: z.date(),
+    description: z.string().optional(),
+  }),
+});
+
+export const collections = { blog };
+```
+
+Every Markdown or MDX file in `src/content/blog/` is now validated against this schema. Files that fail validation cause a build error with a clear message.
+
+## Querying a collection
+
+Use `getCollection` in your page's frontmatter to fetch all entries:
+
+```astro
+---
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+---
+
+<ul>
+  {posts.map(post => <li>{post.data.title}</li>)}
+</ul>
+```
+
+You can pass a filter function as the second argument to `getCollection` to return only matching entries.
+
+## The content runtime module
+
+Under the hood, Astro generates the `getCollection`, `getEntry`, and related helpers from `astro/content/runtime`. These functions map collection names to lazily imported entry modules and handle both `content` type (Markdown/MDX) and `data` type (JSON/YAML) collections. See [Runtime](/docs/content/runtime) for the internal API surface.
+
+## Images in content
+
+You can reference local images from within a content collection schema using the `image()` helper. Astro resolves and emits those images through the asset pipeline at build time. See [Runtime Assets](/docs/content/runtime-assets) for how this works internally.
